@@ -1,41 +1,31 @@
 fileFormatVersion: 2
-guid: c2160bab9f1ae4b4da68fbe014987ecc
-timeCreated: 1448908979
+guid: bc0d7d31829de984fa0a62efa678cfc4
+timeCreated: 1448988154
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
   fileIDToRecycleName:
-    100000: Cube
-    100002: Door
-    100004: //RootNode
-    100006: Frame
-    100008: Plane
-    400000: Cube
-    400002: Door
-    400004: //RootNode
-    400006: Frame
-    400008: Plane
-    2300000: Cube
-    2300002: Door
-    2300004: Frame
-    2300006: //RootNode
-    2300008: Plane
-    3300000: Cube
-    3300002: Door
-    3300004: Frame
-    3300006: //RootNode
-    3300008: Plane
-    4300000: Cube
-    4300002: Door
-    4300004: Frame
-    4300006: Plane
-    6400000: Cube
-    6400002: Door
-    6400004: Frame
-    6400006: //RootNode
-    6400008: Plane
-    7400000: Open
-    7400002: Closed
+    100000: Door
+    100002: //RootNode
+    100004: Frame
+    400000: Door
+    400002: //RootNode
+    400004: Frame
+    2300000: Door
+    2300002: Frame
+    3300000: Door
+    3300002: Frame
+    4300000: Door
+    4300002: Frame
+    6400000: Door
+    6400002: Frame
+    7400000: Door|Close
+    7400002: Door|Open
+    7400004: Frame|Close
+    7400006: Frame|Open
+    7400008: Open.001
+    7400010: Close
+    7400012: Open.002
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -58,8 +48,8 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Open
-      takeName: Default Take
+      name: Door|Close
+      takeName: Door|Close
       firstFrame: 0
       lastFrame: 30
       wrapMode: 0
@@ -83,9 +73,41 @@ ModelImporter:
       transformMask:
       - path: 
         weight: 1
-      - path: Cube
+      - path: Door
+        weight: 1
+      - path: Frame
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Door|Open
+      takeName: Door|Open
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
         weight: 1
       - path: Door
+        weight: 1
+      - path: Frame
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
