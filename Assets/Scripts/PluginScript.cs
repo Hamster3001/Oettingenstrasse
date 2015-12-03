@@ -21,14 +21,16 @@ public class PluginScript : MonoBehaviour {
 		Touch[] touches = Input.touches;
 		if (touches.Length == 1) {
 			if (touches[0].phase.Equals(TouchPhase.Stationary)) {
-				textLeft.text = Mathf.Sin(head.rotation.eulerAngles.y).ToString();
-				textRight.text = head.rotation.eulerAngles.y.ToString();
-				cardboard.position = new Vector3(cardboard.position.x, cardboard.position.y, cardboard.position.z + 0.1f);
+				float radian = ((2.0f * Mathf.PI)/360.0f) * head.rotation.eulerAngles.y;
+				float xFactor = Mathf.Sin(radian);
+				float yFactor = Mathf.Cos(radian);
+				cardboard.position = new Vector3(cardboard.position.x + (xFactor * 0.1f), cardboard.position.y,
+				                                 cardboard.position.z + (yFactor * 0.1f));
 			}
 		}
 		else if (touches.Length == 2) {
 			if (touches[0].phase.Equals(TouchPhase.Began) && touches[1].phase.Equals(TouchPhase.Began)) {
-				bridge.Call ("recordFingerprint", cardboard.position.x, cardboard.position.y);
+				bridge.Call ("recordFingerprint", cardboard.position.x, cardboard.position.z);
 				float[] rec = bridge.Call<float[]> ("getRecord");
 				textLeft.text = "X: " + rec[0] + ", Y: " + rec[1];
 			}
