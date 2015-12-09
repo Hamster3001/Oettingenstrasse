@@ -1,54 +1,96 @@
 fileFormatVersion: 2
-guid: 03d6bb2f410d79644ade80cb6aafcd88
-timeCreated: 1448900962
+guid: e55b541907fb1c94ebda3a521fc967ed
+timeCreated: 1449692077
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
   fileIDToRecycleName:
     100000: Ceiling
     100002: Door_Tops
-    100004: Floor
-    100006: //RootNode
-    100008: Walls
+    100004: Door_Tops2
+    100006: Floor
+    100008: //RootNode
     100010: Stairs_1
     100012: Stairs_2
     100014: Stairs_3
+    100016: Stairs_4
+    100018: Stairs_5
+    100020: Stairs_6
+    100022: Stairs_7
+    100024: Stairs_8
+    100026: Stairs_9
+    100028: Walls
     400000: Ceiling
     400002: Door_Tops
-    400004: Floor
-    400006: //RootNode
-    400008: Walls
+    400004: Door_Tops2
+    400006: Floor
+    400008: //RootNode
     400010: Stairs_1
     400012: Stairs_2
     400014: Stairs_3
+    400016: Stairs_4
+    400018: Stairs_5
+    400020: Stairs_6
+    400022: Stairs_7
+    400024: Stairs_8
+    400026: Stairs_9
+    400028: Walls
     2300000: Ceiling
     2300002: Door_Tops
-    2300004: Floor
-    2300006: Walls
+    2300004: Door_Tops2
+    2300006: Floor
     2300008: Stairs_1
     2300010: Stairs_2
     2300012: Stairs_3
+    2300014: Stairs_4
+    2300016: Stairs_5
+    2300018: Stairs_6
+    2300020: Stairs_7
+    2300022: Stairs_8
+    2300024: Stairs_9
+    2300026: Walls
     3300000: Ceiling
     3300002: Door_Tops
-    3300004: Floor
-    3300006: Walls
+    3300004: Door_Tops2
+    3300006: Floor
     3300008: Stairs_1
     3300010: Stairs_2
     3300012: Stairs_3
-    4300000: Ceiling
-    4300002: Floor
-    4300004: Door_Tops
-    4300006: Walls
-    4300008: Stairs_1
-    4300010: Stairs_3
+    3300014: Stairs_4
+    3300016: Stairs_5
+    3300018: Stairs_6
+    3300020: Stairs_7
+    3300022: Stairs_8
+    3300024: Stairs_9
+    3300026: Walls
+    4300000: Door_Tops2
+    4300002: Stairs_3
+    4300004: Stairs_1
+    4300006: Floor
+    4300008: Door_Tops
+    4300010: Walls
     4300012: Stairs_2
+    4300014: Stairs_4
+    4300016: Stairs_5
+    4300018: Stairs_6
+    4300020: Stairs_7
+    4300022: Stairs_9
+    4300024: Stairs_8
+    4300026: Ceiling
     6400000: Ceiling
     6400002: Door_Tops
-    6400004: Floor
-    6400006: Walls
+    6400004: Door_Tops2
+    6400006: Floor
     6400008: Stairs_1
     6400010: Stairs_2
     6400012: Stairs_3
+    6400014: Stairs_4
+    6400016: Stairs_5
+    6400018: Stairs_6
+    6400020: Stairs_7
+    6400022: Stairs_8
+    6400024: Stairs_9
+    6400026: Walls
     7400000: Default Take
     9500000: //RootNode
   materials:
