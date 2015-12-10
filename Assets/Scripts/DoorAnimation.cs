@@ -13,14 +13,12 @@ public class DoorAnimation : MonoBehaviour {
     {
         anim = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player");
-
     }
 	
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject == player)
         {
-         
             foreach (Transform child in transform)
             {
                 if (child.tag == "Door")
@@ -30,8 +28,6 @@ public class DoorAnimation : MonoBehaviour {
             }
             count++;
         }
-
-
     }
 
     void OnTriggerExit(Collider other)
@@ -40,14 +36,11 @@ public class DoorAnimation : MonoBehaviour {
         { 
             count = Mathf.Max(0, count-1);
         }
-        
     }
 
 
-	void Update () {
-      
+	void Update()
+	{  
         anim.SetBool("Open",count>0);
-    //  door.localRotation
-       
     }
 }
