@@ -37,14 +37,14 @@ public class PluginScript : MonoBehaviour {
 				textLeft.text = "Double Klick";
 				bridge.Call ("findPosition");
 			}
+			/*
 			else if (touches[0].phase.Equals (TouchPhase.Stationary)) {
 				float radian = ((2.0f * Mathf.PI) / 360.0f) * head.rotation.eulerAngles.y;
 				float xFactor = Mathf.Sin (radian);
 				float yFactor = Mathf.Cos (radian);
-				cardboard.transform.position = new Vector3 (cardboard.transform.position.x + (xFactor * 0.1f),
-				                                            cardboard.transform.position.y,
-				                                 			cardboard.transform.position.z + (yFactor * 0.1f));
+				cardboard.transform.Translate (xFactor * Time.deltaTime, 0, yFactor * Time.deltaTime);
 			}
+			*/
 			else if (state != State.Overview
 			         && touches[0].phase.Equals (TouchPhase.Moved)
 			         && touches[0].deltaPosition.y > 10.0f) {
@@ -82,22 +82,6 @@ public class PluginScript : MonoBehaviour {
 			    && touches[1].phase.Equals (TouchPhase.Began)) {
 				bridge.Call ("recordFingerprint", cardboard.transform.position.x, cardboard.transform.position.z);
 			}
-		}
-		else if (Input.GetKey(KeyCode.W)) {
-			float radian = ((2.0f * Mathf.PI) / 360.0f) * head.rotation.eulerAngles.y;
-			float xFactor = Mathf.Sin (radian);
-			float yFactor = Mathf.Cos (radian);
-			cardboard.transform.position = new Vector3 (cardboard.transform.position.x + (xFactor * 0.1f),
-			                                            cardboard.transform.position.y,
-			                                            cardboard.transform.position.z + (yFactor * 0.1f));
-		}
-		else if (Input.GetKey(KeyCode.S)) {
-			float radian = ((2.0f * Mathf.PI) / 360.0f) * head.rotation.eulerAngles.y;
-			float xFactor = Mathf.Sin (radian);
-			float yFactor = Mathf.Cos (radian);
-			cardboard.transform.position = new Vector3 (cardboard.transform.position.x + (xFactor * -0.1f),
-			                                            cardboard.transform.position.y,
-			                                            cardboard.transform.position.z + (yFactor * -0.1f));
 		}
 	}
 
