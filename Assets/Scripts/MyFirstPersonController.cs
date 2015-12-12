@@ -8,13 +8,17 @@ namespace UnityStandardAssets.Characters.FirstPerson
 {
     public class MyFirstPersonController : MonoBehaviour
     {
+		[SerializeField] private float stepSize;					// in meters
         [SerializeField] private float m_WalkSpeed;
         [SerializeField] private float m_StickToGroundForce;
         [SerializeField] private float m_GravityMultiplier;
         [SerializeField] private float m_StepInterval;
-        [SerializeField] private AudioClip[] m_FootstepSounds;    // an array of footstep sounds that will be randomly selected from.
-        [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
+        [SerializeField] private AudioClip[] m_FootstepSounds;    	// an array of footstep sounds that will be randomly selected from.
+        [SerializeField] private AudioClip m_LandSound;           	// the sound played when character touches back on ground.
 
+		private Vector3 oldPosition;
+		private bool step;
+		private float stepDistance;
         private float m_YRotation;
         private Vector2 m_Input;
         private Vector3 m_MoveDir = Vector3.zero;
@@ -28,6 +32,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         // Use this for initialization
         private void Start()
         {
+			step = false;
             m_CharacterController = GetComponentInParent<CharacterController>();
             m_StepCycle = 0f;
             m_NextStep = m_StepCycle/2f;
@@ -72,7 +77,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             RaycastHit hitInfo;
             Physics.SphereCast(transform.position, m_CharacterController.radius, Vector3.down, out hitInfo,
                                m_CharacterController.height/2f);
-            desiredMove = Vector3.ProjectOnPlane(desiredMove, hitInfo.normal).normalized;
+            //desiredMove = Vector3.ProjectOnPlane(desiredMove, hitInfo.normal).normalized;
 
             m_MoveDir.x = desiredMove.x*speed;
             m_MoveDir.z = desiredMove.z*speed;
@@ -86,8 +91,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 m_MoveDir += Physics.gravity*m_GravityMultiplier*Time.fixedDeltaTime;
             }
+
 			// Movement
             m_CollisionFlags = m_CharacterController.Move(m_MoveDir*Time.fixedDeltaTime);
+
+			stepDistance = Vector3.Distance(oldPosition, m_CharacterController.transform.position);
+			if (stepDistance >= stepSize) {
+				step = false;
+			}
 
             ProgressStepCycle(speed);
         }
@@ -128,9 +139,18 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void GetInput(out float speed)
         {
+			// Test
+			if (Input.GetKeyDown (KeyCode.V))
+				MakeStep ();
+
             // Read input
             float horizontal = CrossPlatformInputManager.GetAxis("Horizontal");
             float vertical = CrossPlatformInputManager.GetAxis("Vertical");
+
+			if (step) {
+				horizontal = 0.0f;
+				vertical = 1.0f;
+			}
 
 #if MOBILE_INPUT
 			Touch[] touches = Input.touches;
@@ -152,6 +172,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 m_Input.Normalize();
             }
         }
+
+		public void MakeStep() {
+			oldPosition = m_CharacterController.transform.position;
+			stepDistance = 0.0f;
+			step = true;
+		}
 
         private void OnControllerColliderHit(ControllerColliderHit hit)
         {
