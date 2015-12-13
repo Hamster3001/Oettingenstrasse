@@ -93,6 +93,14 @@ public class PluginScript : MonoBehaviour {
 		textRight.text = text;
 	}
 
+	void AddLeftText(string text) {
+		textLeft.text = textLeft.text + "\n" + text;
+	}
+
+	void AddRightText(string text) {
+		textRight.text = textRight.text + "\n" + text;
+	}
+
 	void SetPosition(string text) {
 		string[] parameterArray = text.Split (new char[]{'#'});
 		if (parameterArray.Length == 3) {
@@ -100,11 +108,10 @@ public class PluginScript : MonoBehaviour {
 			float zPosition = float.Parse(parameterArray[1]);
 			cardboard.transform.position = new Vector3(xPosition, cardboard.transform.position.y, zPosition);
 
-			textLeft.text = "X: " + xPosition.ToString() + ", Z: " + zPosition.ToString();
-			textRight.text = parameterArray[2];
+			textRight.text = "X: " + xPosition.ToString() + ", Z: " + zPosition.ToString() + "\n" + parameterArray[2];
 		}
 		else {
-			textLeft.text = "Wrong Parameter Size";
+			textRight.text = "Wrong Parameter Size";
 		}
 	}
 }
