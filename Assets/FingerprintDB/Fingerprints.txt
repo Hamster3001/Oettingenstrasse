@@ -1,0 +1,20 @@
+fingerprint: 96.47,-2.5,0,359.58325
+measure: 88:03:55:d4:2c:a4, -78
+measure: c0:25:06:4f:89:5b, -79
+measure: 34:81:c4:32:99:14, -81
+measure: 34:81:c4:03:f4:8a, -89
+
+fingerprint: 96.47,-2.5,0,6.5463614
+measure: 88:03:55:d4:2c:a4, -79
+measure: c0:25:06:4f:89:5b, -78
+measure: 34:81:c4:32:99:14, -80
+measure: 34:81:c4:03:f4:8a, -86
+measure: fa:8f:ca:6d:72:5e, -90
+
+fingerprint: 96.47,-2.5,0,5.9000406
+measure: 88:03:55:d4:2c:a4, -76
+measure: c0:25:06:4f:89:5b, -76
+measure: 34:81:c4:32:99:14, -82
+measure: 34:81:c4:03:f4:8a, -87
+measure: fa:8f:ca:6d:72:5e, -91
+

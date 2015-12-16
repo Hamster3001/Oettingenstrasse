@@ -1,13 +1,17 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.IO;
 
 public class PluginScript : MonoBehaviour {
 
 	enum State {Overview, CardboardVR, Cardboard3D};
 
+	public TextAsset textAsset;
+
 	public Text textLeft;
 	public Text textRight;
+	public Text textMiddle;
 	
 	public GameObject ceiling;
 
@@ -27,59 +31,50 @@ public class PluginScript : MonoBehaviour {
 		bridge = new AndroidJavaObject ("com.example.player.Bridge");
 
 		state = State.CardboardVR;
+
+		bridge.Call ("initializeFingerprints", textAsset.text);
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		textMiddle.text = cardboard.transform.position.x + " , " + cardboard.transform.position.z;
+
 		Touch[] touches = Input.touches;
 		if (touches.Length == 1) {
 			if (touches[0].tapCount == 2) {
 				textLeft.text = "Double Klick";
 				bridge.Call ("findPosition");
 			}
-			/*
-			else if (touches[0].phase.Equals (TouchPhase.Stationary)) {
-				float radian = ((2.0f * Mathf.PI) / 360.0f) * head.rotation.eulerAngles.y;
-				float xFactor = Mathf.Sin (radian);
-				float yFactor = Mathf.Cos (radian);
-				cardboard.transform.Translate (xFactor * Time.deltaTime, 0, yFactor * Time.deltaTime);
+			else if (touches[0].phase.Equals (TouchPhase.Moved)) {
+				if (state != State.Overview
+				    && touches[0].deltaPosition.y > 5.0f) {
+					state = State.Overview;
+					cardboardCam.SetActive(false);
+					sphere.SetActive(true);
+					overviewCam.gameObject.SetActive(true);
+					ceiling.SetActive(false);
+				}
+				else if (state == State.Overview
+				    && touches[0].deltaPosition.y < -5.0f) {
+					state = State.CardboardVR;
+					ceiling.SetActive(true);
+					overviewCam.gameObject.SetActive(false);
+					sphere.SetActive(false);
+					cardboardCam.SetActive(true);
+					cardboard.VRModeEnabled = true;
+				}
+				else if (state == State.CardboardVR
+				    && touches[0].deltaPosition.x > 5.0f) {
+					state = State.Cardboard3D;
+					cardboard.VRModeEnabled = false;
+				}
+				else if (state == State.Cardboard3D
+				    && touches[0].deltaPosition.x < -5.0f) {
+					state = State.CardboardVR;
+					cardboard.VRModeEnabled = true;
+				}
 			}
-			*/
-			else if (state != State.Overview
-			         && touches[0].phase.Equals (TouchPhase.Moved)
-			         && touches[0].deltaPosition.y > 10.0f) {
-				state = State.Overview;
-				cardboardCam.SetActive(false);
-				sphere.SetActive(true);
-				overviewCam.gameObject.SetActive(true);
-				ceiling.SetActive(false);
-			}
-			else if (state == State.Overview
-			         && touches[0].phase.Equals (TouchPhase.Moved)
-			         && touches[0].deltaPosition.y < -10.0f) {
-				state = State.CardboardVR;
-				ceiling.SetActive(true);
-				overviewCam.gameObject.SetActive(false);
-				sphere.SetActive(false);
-				cardboardCam.SetActive(true);
-				cardboard.VRModeEnabled = true;
-			}
-			else if (state == State.CardboardVR
-			         && touches[0].phase.Equals (TouchPhase.Moved)
-			         && touches[0].deltaPosition.x > 10.0f) {
-				state = State.Cardboard3D;
-				cardboard.VRModeEnabled = false;
-			}
-			else if (state == State.Cardboard3D
-			         && touches[0].phase.Equals (TouchPhase.Moved)
-			         && touches[0].deltaPosition.x < -10.0f) {
-				state = State.CardboardVR;
-				cardboard.VRModeEnabled = true;
-			}
-		}
-		else if (touches.Length == 2) {
-			if (touches[0].phase.Equals (TouchPhase.Began)
-			    && touches[1].phase.Equals (TouchPhase.Began)) {
+			else if (touches[0].phase.Equals (TouchPhase.Began) && touches[0].position.x < Screen.width/2) {
 				bridge.Call ("recordFingerprint", cardboard.transform.position.x, cardboard.transform.position.z);
 			}
 		}
