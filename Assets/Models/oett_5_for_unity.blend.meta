@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: e55b541907fb1c94ebda3a521fc967ed
-timeCreated: 1449692077
+guid: cb20dfc98a68cf746ab381909f737ac3
+timeCreated: 1450361602
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
@@ -10,87 +10,99 @@ ModelImporter:
     100004: Door_Tops2
     100006: Floor
     100008: //RootNode
-    100010: Stairs_1
-    100012: Stairs_2
-    100014: Stairs_3
-    100016: Stairs_4
-    100018: Stairs_5
-    100020: Stairs_6
-    100022: Stairs_7
-    100024: Stairs_8
-    100026: Stairs_9
-    100028: Walls
+    100010: Plane
+    100012: StairCubes
+    100014: Stairs_1
+    100016: Stairs_2
+    100018: Stairs_3
+    100020: Stairs_4
+    100022: Stairs_5
+    100024: Stairs_6
+    100026: Stairs_7
+    100028: Stairs_8
+    100030: Stairs_9
+    100032: Walls
     400000: Ceiling
     400002: Door_Tops
     400004: Door_Tops2
     400006: Floor
     400008: //RootNode
-    400010: Stairs_1
-    400012: Stairs_2
-    400014: Stairs_3
-    400016: Stairs_4
-    400018: Stairs_5
-    400020: Stairs_6
-    400022: Stairs_7
-    400024: Stairs_8
-    400026: Stairs_9
-    400028: Walls
+    400010: Plane
+    400012: StairCubes
+    400014: Stairs_1
+    400016: Stairs_2
+    400018: Stairs_3
+    400020: Stairs_4
+    400022: Stairs_5
+    400024: Stairs_6
+    400026: Stairs_7
+    400028: Stairs_8
+    400030: Stairs_9
+    400032: Walls
     2300000: Ceiling
     2300002: Door_Tops
     2300004: Door_Tops2
     2300006: Floor
-    2300008: Stairs_1
-    2300010: Stairs_2
-    2300012: Stairs_3
-    2300014: Stairs_4
-    2300016: Stairs_5
-    2300018: Stairs_6
-    2300020: Stairs_7
-    2300022: Stairs_8
-    2300024: Stairs_9
-    2300026: Walls
+    2300008: Plane
+    2300010: StairCubes
+    2300012: Stairs_1
+    2300014: Stairs_2
+    2300016: Stairs_3
+    2300018: Stairs_4
+    2300020: Stairs_5
+    2300022: Stairs_6
+    2300024: Stairs_7
+    2300026: Stairs_8
+    2300028: Stairs_9
+    2300030: Walls
     3300000: Ceiling
     3300002: Door_Tops
     3300004: Door_Tops2
     3300006: Floor
-    3300008: Stairs_1
-    3300010: Stairs_2
-    3300012: Stairs_3
-    3300014: Stairs_4
-    3300016: Stairs_5
-    3300018: Stairs_6
-    3300020: Stairs_7
-    3300022: Stairs_8
-    3300024: Stairs_9
-    3300026: Walls
-    4300000: Door_Tops2
-    4300002: Stairs_3
-    4300004: Stairs_1
-    4300006: Floor
-    4300008: Door_Tops
-    4300010: Walls
-    4300012: Stairs_2
-    4300014: Stairs_4
-    4300016: Stairs_5
-    4300018: Stairs_6
-    4300020: Stairs_7
-    4300022: Stairs_9
-    4300024: Stairs_8
-    4300026: Ceiling
+    3300008: Plane
+    3300010: StairCubes
+    3300012: Stairs_1
+    3300014: Stairs_2
+    3300016: Stairs_3
+    3300018: Stairs_4
+    3300020: Stairs_5
+    3300022: Stairs_6
+    3300024: Stairs_7
+    3300026: Stairs_8
+    3300028: Stairs_9
+    3300030: Walls
+    4300000: Plane
+    4300002: Door_Tops2
+    4300004: Stairs_3
+    4300006: Stairs_1
+    4300008: Floor
+    4300010: Door_Tops
+    4300012: Walls
+    4300014: Stairs_2
+    4300016: Stairs_4
+    4300018: Stairs_5
+    4300020: Stairs_6
+    4300022: Stairs_7
+    4300024: Stairs_9
+    4300026: Stairs_8
+    4300028: Ceiling
+    4300030: StairCubes
     6400000: Ceiling
     6400002: Door_Tops
     6400004: Door_Tops2
     6400006: Floor
-    6400008: Stairs_1
-    6400010: Stairs_2
-    6400012: Stairs_3
-    6400014: Stairs_4
-    6400016: Stairs_5
-    6400018: Stairs_6
-    6400020: Stairs_7
-    6400022: Stairs_8
-    6400024: Stairs_9
-    6400026: Walls
+    6400008: Plane
+    6400010: StairCubes
+    6400012: Stairs_1
+    6400014: Stairs_2
+    6400016: Stairs_3
+    6400018: Stairs_4
+    6400020: Stairs_5
+    6400022: Stairs_6
+    6400024: Stairs_7
+    6400026: Stairs_8
+    6400028: Stairs_9
+    6400030: Walls
     7400000: Default Take
     9500000: //RootNode
   materials:
