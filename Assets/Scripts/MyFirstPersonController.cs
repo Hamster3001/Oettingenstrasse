@@ -176,7 +176,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		public void MakeStep() {
 			oldPosition = m_CharacterController.transform.position;
 			stepDistance = 0.0f;
-			//step = true;
+			step = true;
 		}
 
         private void OnControllerColliderHit(ControllerColliderHit hit)

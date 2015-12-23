@@ -41,11 +41,7 @@ public class PluginScript : MonoBehaviour {
 
 		Touch[] touches = Input.touches;
 		if (touches.Length == 1) {
-			if (touches[0].tapCount == 2) {
-				textLeft.text = "Double Klick";
-				bridge.Call ("findPosition");
-			}
-			else if (touches[0].phase.Equals (TouchPhase.Moved)) {
+			if (touches[0].phase.Equals (TouchPhase.Moved)) {
 				if (state != State.Overview
 				    && touches[0].deltaPosition.y > 5.0f) {
 					state = State.Overview;
@@ -74,8 +70,17 @@ public class PluginScript : MonoBehaviour {
 					cardboard.VRModeEnabled = true;
 				}
 			}
-			else if (touches[0].phase.Equals (TouchPhase.Began) && touches[0].position.x < Screen.width/2) {
+			else if (touches[0].phase.Equals (TouchPhase.Began)
+			         && touches[0].position.x < Screen.width/2
+			         && touches[0].position.y > Screen.height/2) {
+				textLeft.text = "Record Fingerprint";
 				bridge.Call ("recordFingerprint", cardboard.transform.position.x, cardboard.transform.position.z);
+			}
+			else if (touches[0].phase.Equals (TouchPhase.Began)
+			         && touches[0].position.x < Screen.width/2
+			         && touches[0].position.y < Screen.height/2) {
+				textLeft.text = "Find Position";
+				bridge.Call ("findPosition");
 			}
 		}
 	}
@@ -103,10 +108,10 @@ public class PluginScript : MonoBehaviour {
 			float zPosition = float.Parse(parameterArray[1]);
 			cardboard.transform.position = new Vector3(xPosition, cardboard.transform.position.y, zPosition);
 
-			textRight.text = "X: " + xPosition.ToString() + ", Z: " + zPosition.ToString() + "\n" + parameterArray[2];
+			textLeft.text = "Position: X=" + xPosition.ToString() + ", Z=" + zPosition.ToString() + "\n" + parameterArray[2];
 		}
 		else {
-			textRight.text = "Wrong Parameter Size";
+			textLeft.text = "Wrong Parameter Size";
 		}
 	}
 }
