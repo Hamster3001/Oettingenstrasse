@@ -67,12 +67,15 @@ public class Navigation : MonoBehaviour {
 		Transform[] startpoints = getStartPoints (player.transform,target);
 		donepoints = new Transform[0];
 		startpoint = startpoints [0];
+		path = new Transform[0];
 
-//		Debug.Log ("END: "+endpoint);
-//		Debug.Log ("START: "+startpoint);
+		Debug.Log ("END: "+endpoint);
+		Debug.Log ("START: "+startpoint);
 
-
+		if(startpoint!=endpoint){
 		path = buildPath(startpoint, endpoint);
+		}
+		else ArrayUtility.Add (ref path, endpoint);
 
 		if (path!=null) {
 //			Debug.Log("PATHLENGTH" +path.Length);
@@ -444,6 +447,17 @@ public class Navigation : MonoBehaviour {
 				target = doors[i];
 			}
 		}
+
+		foreach(Transform child in target.transform)
+		{
+			if(child.gameObject.name.Contains("Door")){
+
+			Renderer rend = child.gameObject.GetComponent<Renderer>();
+				rend.material.color = Color.cyan;
+			}
+		}
+
+
 		return target.transform;
 	}
 

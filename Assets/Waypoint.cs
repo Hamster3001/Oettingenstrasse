@@ -25,7 +25,7 @@ public class Waypoint : MonoBehaviour {
 		if (other.gameObject == player)
 		{
 			hitbyplayer = true;
-			renderer.color = new Color(0f,255f,0f,0.35f);
+			renderer.color =  new Color(0f,255f,255f,0.5f);
 			//	renderer.enabled = false;
 		}
 
