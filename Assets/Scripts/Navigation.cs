@@ -17,6 +17,9 @@ public class Navigation : MonoBehaviour {
 	private Transform target;
 	private Transform[] path;
 	private int while_counter = 0;
+	private Transform startpoint;
+	private Transform endpoint;
+	private bool rotateonce;
 
 
 	void Start () {
@@ -60,11 +63,10 @@ public class Navigation : MonoBehaviour {
 
 		hideAllWaypoints ();
 		target = findTargetDoor (targetstring);
-		Transform endpoint = getNearestNeighbor (target, allwaypoints2);
+		endpoint = getNearestNeighbor (target, allwaypoints2);
 		Transform[] startpoints = getStartPoints (player.transform,target);
 		donepoints = new Transform[0];
-
-		Transform startpoint = startpoints [0];
+		startpoint = startpoints [0];
 
 //		Debug.Log ("END: "+endpoint);
 //		Debug.Log ("START: "+startpoint);
@@ -82,12 +84,44 @@ public class Navigation : MonoBehaviour {
 				if(p==endpoint)waypointscript.endpoint=true;
 			}
 
-
+			rotateStartAndEndpoint();
 			InvokeRepeating("rotateWaypoints", 0, 0.5f);
 
 
 		} else
 			Debug.Log ("No Path found");
+
+	}
+
+
+	void rotateStartAndEndpoint(){
+
+	if (startpoint.gameObject.tag == "HorizontalWaypoint") {
+			if (startpoint.transform.position.x < player.transform.position.x) {
+				startpoint.transform.GetChild (0).transform.eulerAngles = new Vector3 (90f, 270f, 0f);
+			}
+
+			if (endpoint.transform.position.x < player.transform.position.x) {
+				endpoint.transform.GetChild (0).transform.eulerAngles = new Vector3 (90f, 270f, 0f);
+			}
+
+	 }	
+
+		if (startpoint.gameObject.tag == "VerticalWaypoint") {
+
+			if (startpoint.transform.position.z < player.transform.position.z) {
+				startpoint.transform.GetChild (0).transform.eulerAngles = new Vector3 (90f, -180f, 0f);
+			}
+
+			if (endpoint.transform.position.z < player.transform.position.z) {
+				Debug.Log ("IF");
+				endpoint.transform.GetChild (0).transform.eulerAngles = new Vector3 (90f, -180f, 0f);
+			}
+
+
+		}	  
+	
+		//startpoint.transform.GetChild(0).transform.rotation.eulerAngles.x !=90;
 
 	}
 
@@ -332,12 +366,15 @@ public class Navigation : MonoBehaviour {
 			Transform waypoint = path[i];
 			Waypoint waypointscript = waypoint.GetComponent<Waypoint>();
 
+			if(waypoint!=endpoint){
+
+			if(waypoint!=startpoint){
+
 			if(!waypointscript.hitbyplayer){
 				
 			if(waypoint.gameObject.tag == "HorizontalWaypoint"){
 
 			if(waypoint.transform.position.x > player.transform.position.x){
-				
 				
 				if(waypoint.transform.GetChild(0).transform.rotation.eulerAngles.x !=90){
 					waypoint.transform.GetChild(0).transform.Rotate(180,0,0);}
@@ -347,7 +384,9 @@ public class Navigation : MonoBehaviour {
 				if(waypoint.transform.GetChild(0).transform.rotation.eulerAngles.x !=270f){
 					waypoint.transform.GetChild(0).transform.Rotate(-180,0,0);
 				}
+
 			}
+
 
 		  }
 
@@ -369,7 +408,11 @@ public class Navigation : MonoBehaviour {
 
 			}	
 
+			}//hit
+
 			}
+
+		  }
 			
 		}//for
 		
