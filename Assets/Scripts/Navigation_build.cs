@@ -2,37 +2,42 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 
-public class Navigation : MonoBehaviour {
+
+public class Navigation_build : MonoBehaviour {
 
 	private GameObject[] doors;
 	private GameObject player;
 	public string targetstring;
+	private Transform target;
 	private GameObject[] horizontalwaypoints;
 	private GameObject[] verticalwaypoints;
 	private GameObject[] allwaypoints;
-	private GameObject[] allwaypoints2;
-	Transform[] donepoints;
-	private Transform target;
-	private Transform[] path;
+	private List<Transform> donepoints;
+	private List<Transform> path;
+	private List<GameObject> allwaypoints2; 
 	private int while_counter = 0;
 	private Transform startpoint;
 	private Transform endpoint;
 	private bool rotateonce;
 
 
+
 	void Start () {
+
 
 		doors = GameObject.FindGameObjectsWithTag("NamedDoor");
 		horizontalwaypoints = GameObject.FindGameObjectsWithTag("HorizontalWaypoint");
 		verticalwaypoints = GameObject.FindGameObjectsWithTag("VerticalWaypoint");
 		allwaypoints = new GameObject[horizontalwaypoints.Length+verticalwaypoints.Length];
-		allwaypoints2 = new GameObject[horizontalwaypoints.Length+verticalwaypoints.Length];
 		horizontalwaypoints.CopyTo (allwaypoints, 0);
 		verticalwaypoints.CopyTo (allwaypoints, horizontalwaypoints.Length);
-		horizontalwaypoints.CopyTo (allwaypoints2, 0);
-		verticalwaypoints.CopyTo (allwaypoints2, horizontalwaypoints.Length);
+		allwaypoints2 = new List<GameObject>();  
+
+		foreach (GameObject g in allwaypoints) {
+			allwaypoints2.Add(g);
+		}
+
 
 		player = GameObject.FindGameObjectWithTag ("Player");
 
@@ -48,9 +53,9 @@ public class Navigation : MonoBehaviour {
 	
     Transform[] getStartPoints(Transform source,Transform target){
 
-		GameObject[] twoNN = getNearestNeighbors (source, 2,allwaypoints2);
+		List<GameObject> twoNN = getNearestNeighbors (source, 2,allwaypoints2);
 		Transform startObject = getNearestNeighbor(target, twoNN);
-		ArrayUtility.Remove(ref twoNN,startObject.gameObject);
+		twoNN.Remove(startObject.gameObject);
 		Transform[] result = new Transform [2];
 		result [0] = startObject;
 		result [1] = twoNN [0].transform;
@@ -65,17 +70,17 @@ public class Navigation : MonoBehaviour {
 		target = findTargetDoor (targetstring);
 		endpoint = getNearestNeighbor (target, allwaypoints2);
 		Transform[] startpoints = getStartPoints (player.transform,target);
-		donepoints = new Transform[0];
+		donepoints = new List<Transform> ();
 		startpoint = startpoints [0];
-		path = new Transform[0];
+		path = new List<Transform> ();
 
-		Debug.Log ("END: "+endpoint);
-		Debug.Log ("START: "+startpoint);
+//		Debug.Log ("END: "+endpoint);
+//		Debug.Log ("START: "+startpoint);
 
-		if(startpoint!=endpoint){
-		path = buildPath(startpoint, endpoint);
-		}
-		else ArrayUtility.Add (ref path, endpoint);
+		if (startpoint != endpoint) {
+			path = buildPath (startpoint, endpoint);
+		} else
+			path.Add (endpoint);
 
 		if (path!=null) {
 //			Debug.Log("PATHLENGTH" +path.Length);
@@ -117,7 +122,6 @@ public class Navigation : MonoBehaviour {
 			}
 
 			if (endpoint.transform.position.z < player.transform.position.z) {
-				Debug.Log ("IF");
 				endpoint.transform.GetChild (0).transform.eulerAngles = new Vector3 (90f, -180f, 0f);
 			}
 
@@ -129,134 +133,127 @@ public class Navigation : MonoBehaviour {
 	}
 
 
-	Transform[] buildPath(Transform startpoint, Transform endpoint){
+	 List<Transform> buildPath(Transform startpoint, Transform endpoint){
 
 		ArrayList resultpathes = new ArrayList ();
-		Transform[] currentpoints = new Transform[0];
+		List<Transform> currentpoints = new List<Transform> ();
 
-		ArrayUtility.Add (ref currentpoints, startpoint);
-		Transform[] resultpath = new Transform[0];
-		ArrayUtility.Add (ref resultpath, startpoint);
+		currentpoints.Add (startpoint);
+		List<Transform> resultpath = new List<Transform>();
+		resultpath.Add (startpoint);
 		resultpathes.Add (resultpath);
-		bool breaknew = false;
 
-		while (true) {				
-
+		while (true) {
+		
 			while_counter++;
 			if(while_counter>10000)break;
 
-			foreach (Transform p in currentpoints){
+			for (int i=0;i<currentpoints.Count;i++){
 
-				Transform[]nextpoints = getOneStepPoints(p);
-
-				bool first = true;
-				int idx = ArrayUtility.IndexOf(currentpoints,p);
-
-				if(nextpoints==null ||nextpoints.Length==0){
-
-					ArrayUtility.Remove(ref currentpoints,p);
-					resultpathes.Remove(resultpathes[idx]);
+				Transform p = currentpoints[i];
+				if(p==null){
 					continue;
 				}
 
-				Transform[] currentresultpath = null;
+				List<Transform> nextpoints = getOneStepPoints(p);
+
+				bool first = true;
+				int idx = currentpoints.IndexOf(p);
+
+				if(nextpoints.Count==0){
+					currentpoints[idx]=null;
+					resultpathes[idx]=null;
+					continue;
+				}
+
+				List<Transform> currentresultpath = new List<Transform>((List<Transform>)resultpathes[idx]);
 
 				foreach (Transform np in nextpoints){
-
 					if(first){
 
-
-						currentresultpath = (Transform[])resultpathes[idx];
+						currentresultpath = (List<Transform>)resultpathes[idx];
+						List<Transform> tempcurrentresultpath = new List<Transform>((List<Transform>)resultpathes[idx]);
+						tempcurrentresultpath.Add(np);
+						resultpathes[idx] = tempcurrentresultpath;
 						currentpoints[idx] = np;
-						ArrayUtility.Add (ref currentresultpath,np);
-						resultpathes[idx] = currentresultpath;
-						ArrayUtility.Remove (ref currentresultpath,np);
+					
 						first = false;
 					}
 
 					else{
 
-						ArrayUtility.Add (ref currentpoints,np);
-						Transform[] newresultpath = (Transform[]) currentresultpath.Clone();	
-						ArrayUtility.Add (ref newresultpath,np);
+						currentpoints.Add(np);
+						List<Transform> newresultpath = new List<Transform>(currentresultpath);
+						newresultpath.Add (np);
 						resultpathes.Add(newresultpath);
 
 					}
 
 					if(np==endpoint){
-						ArrayUtility.Add(ref currentresultpath,np);		
+						currentresultpath.Add (np);	
 						return currentresultpath;
 					}
 
 
 				}
 				if(!donepoints.Contains(p)){
-				ArrayUtility.Add(ref donepoints,p);
+					donepoints.Add(p);
 				}
-			}
+			} //for each
 
 		}
 		return null;
 	}
 
 	
-	Transform[]getOneStepPoints(Transform p){
+	List<Transform> getOneStepPoints(Transform p){
 
-		Transform[] result = new Transform[0];
+		List<Transform> candidates = new List<Transform> ();
+		List<Transform> result = new List<Transform> ();
 		string name = p.gameObject.name;
 
 		if (name.Contains ("split")) {
-		GameObject[] tempresult = getNearestNeighbors (p, 3, allwaypoints2);
+		List<GameObject>  tempresult = getNearestNeighbors (p, 3, allwaypoints2);
 
 			foreach(GameObject g in tempresult){
 
-				ArrayUtility.Add(ref result,g.transform);
+				candidates.Add(g.transform);
 	        }
 
 		} else if (name.Contains ("fourway")) {
 
-			GameObject[] tempresult = getNearestNeighbors (p, 4, allwaypoints2);
+			List<GameObject>  tempresult = getNearestNeighbors (p, 4, allwaypoints2);
 			
 			foreach(GameObject g in tempresult){
 				
-				ArrayUtility.Add(ref result,g.transform);
-				
+				candidates.Add(g.transform);
 			}
 		} else {
 
-			GameObject[] tempresult = getNearestNeighbors (p, 2, allwaypoints2);
+			List<GameObject>  tempresult = getNearestNeighbors (p, 2, allwaypoints2);
 			
 			foreach(GameObject g in tempresult){
 				
-				ArrayUtility.Add(ref result,g.transform);
-				
+				candidates.Add(g.transform);
 			}
 		}
-
-		if (donepoints.Length > 0) {
-		
-		foreach(Transform pt in donepoints){
 			
-			foreach(Transform r in result){
+		foreach(Transform can in candidates){
 
-				if(donepoints.Contains(r)){
+				if(!donepoints.Contains(can)){
 
-					ArrayUtility.Remove(ref result,r);
+				result.Add(can);
 
 				}
-			}
-			
+
 		}
-
-	}
-
 
 		return result;
 	}
 
 	
 
-	Transform getNearestNeighbor (Transform source, GameObject[]allwaypoints)
+	Transform getNearestNeighbor (Transform source, List<GameObject>allwaypoints)
 	{
 		Transform bestTarget = null;
 		float closestDist = Mathf.Infinity;
@@ -280,16 +277,17 @@ public class Navigation : MonoBehaviour {
 
 
 
-    GameObject[] getNearestNeighbors (Transform source, int number, GameObject[]waypoints)
+	List<GameObject> getNearestNeighbors (Transform source, int number, List<GameObject>waypoints)
 	{	
 	
 	
-		GameObject[] result = new GameObject[number];
+		List<GameObject> result = new List<GameObject> ();
+
 	    Vector3 currentPosition = source.position;
-				var distanceToObject = new Dictionary <float, GameObject>(waypoints.Length);  
+				var distanceToObject = new Dictionary <float, GameObject>(waypoints.Count);  
 	
 				foreach(GameObject waypoint in waypoints)
-		{
+		  {
 			//float dist =  Vector3.Distance(waypoint.transform.position,currentPosition);
 		
 			Vector3 directionToTarget = waypoint.transform.position - currentPosition;
@@ -313,7 +311,7 @@ public class Navigation : MonoBehaviour {
 		{   
 
 			if(counter<number &&item.Value.name!=source.gameObject.name){
-			result[counter]=item.Value; 
+				result.Add(item.Value);
 			counter ++;
 			}
 		}
@@ -364,7 +362,7 @@ public class Navigation : MonoBehaviour {
 
 	void rotateWaypoints(){
 		
-		for (int i = 0; i < path.Length; i++) {
+		for (int i = 0; i < path.Count; i++) {
 
 			Transform waypoint = path[i];
 			Waypoint waypointscript = waypoint.GetComponent<Waypoint>();
@@ -424,7 +422,7 @@ public class Navigation : MonoBehaviour {
 
 	void testCrossing(GameObject crossing){
 
-		GameObject[] List = getNearestNeighbors (crossing.transform, 3,allwaypoints);
+		List<GameObject> List = getNearestNeighbors (crossing.transform, 3,allwaypoints2);
 
 		foreach (GameObject t in List) {
 
