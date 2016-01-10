@@ -7,8 +7,6 @@ public class Waypoint : MonoBehaviour {
 	private GameObject player;
 	public bool hitbyplayer;
 	private SpriteRenderer renderer;
-	public bool startpoint;
-	public bool endpoint;
 	private Transform sprite;
 	
 	// Use this for initialization
@@ -18,6 +16,8 @@ public class Waypoint : MonoBehaviour {
 		player = GameObject.FindGameObjectWithTag("Player");
 		sprite = this.gameObject.transform.GetChild(0);
 		renderer = sprite.GetComponent<SpriteRenderer>();
+
+
 	}
 	
 	void OnTriggerEnter(Collider other)
@@ -29,19 +29,7 @@ public class Waypoint : MonoBehaviour {
 			//	renderer.enabled = false;
 		}
 
-		if (startpoint) {
-
-			Sprite mysprite = Resources.Load("startsprite",typeof(Sprite)) as Sprite;
-			renderer.sprite = mysprite;
-		}
-		
-		if (endpoint) {
-
-			Sprite mysprite = Resources.Load("endsprite",typeof(Sprite)) as Sprite;
-			renderer.sprite = mysprite;
-			
-			
-		}
+	
 
 	}
 

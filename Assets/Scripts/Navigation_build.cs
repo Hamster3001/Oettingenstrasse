@@ -88,8 +88,7 @@ public class Navigation_build : MonoBehaviour {
 
 				activateWaypoint (p);
 				Waypoint waypointscript = p.GetComponent<Waypoint>();
-				if(p==startpoint)waypointscript.startpoint=true;
-				if(p==endpoint)waypointscript.endpoint=true;
+
 			}
 
 			rotateStartAndEndpoint();
@@ -112,7 +111,6 @@ public class Navigation_build : MonoBehaviour {
 			if (endpoint.transform.position.x < player.transform.position.x) {
 				endpoint.transform.GetChild (0).transform.eulerAngles = new Vector3 (90f, 270f, 0f);
 			}
-
 	 }	
 
 		if (startpoint.gameObject.tag == "VerticalWaypoint") {
@@ -128,7 +126,15 @@ public class Navigation_build : MonoBehaviour {
 
 		}	  
 	
-		//startpoint.transform.GetChild(0).transform.rotation.eulerAngles.x !=90;
+		Transform sprite = startpoint.gameObject.transform.GetChild(0);
+		SpriteRenderer renderer = sprite.GetComponent<SpriteRenderer>();
+		Sprite mysprite = Resources.Load("startsprite",typeof(Sprite)) as Sprite;
+		renderer.sprite = mysprite;
+
+		Transform esprite = endpoint.gameObject.transform.GetChild(0);
+		SpriteRenderer erenderer = esprite.GetComponent<SpriteRenderer>();
+		Sprite emysprite = Resources.Load("endsprite",typeof(Sprite)) as Sprite;
+		erenderer.sprite = emysprite;
 
 	}
 
