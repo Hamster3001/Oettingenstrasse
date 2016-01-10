@@ -43,8 +43,8 @@ public class Navigation_build : MonoBehaviour {
 
 		if (targetstring == "") {
 		
-			targetstring = "B001";
-		
+			if(Menuscript.searchstring!=null)targetstring = Menuscript.searchstring;
+			else targetstring = "B001";
 		}
 
 		startPath ();
@@ -87,7 +87,6 @@ public class Navigation_build : MonoBehaviour {
 			foreach (Transform p in path) {
 
 				activateWaypoint (p);
-				Waypoint waypointscript = p.GetComponent<Waypoint>();
 
 			}
 
