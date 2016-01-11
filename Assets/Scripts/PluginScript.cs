@@ -14,6 +14,7 @@ public class PluginScript : MonoBehaviour {
 	public Text textMiddle;
 	
 	public GameObject[] ceiling;
+	public GameObject staircubes;
 
 	public Camera overviewCam;
 
@@ -47,6 +48,7 @@ public class PluginScript : MonoBehaviour {
 					state = State.Overview;
 					cardboardCam.SetActive(false);
 					sphere.SetActive(true);
+					staircubes.SetActive(false);
 					overviewCam.gameObject.SetActive(true);
 					for (int i=0; i<ceiling.Length; i++) {
 						ceiling[i].SetActive(false);
@@ -55,6 +57,7 @@ public class PluginScript : MonoBehaviour {
 				else if (state == State.Overview
 				    && touches[0].deltaPosition.y < -5.0f) {
 					state = State.CardboardVR;
+					staircubes.SetActive(true);
 					for (int i=0; i<ceiling.Length; i++) {
 						ceiling[i].SetActive(true);
 					}
