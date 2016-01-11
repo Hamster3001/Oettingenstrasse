@@ -13,7 +13,7 @@ public class PluginScript : MonoBehaviour {
 	public Text textRight;
 	public Text textMiddle;
 	
-	public GameObject ceiling;
+	public GameObject[] ceiling;
 
 	public Camera overviewCam;
 
@@ -48,12 +48,16 @@ public class PluginScript : MonoBehaviour {
 					cardboardCam.SetActive(false);
 					sphere.SetActive(true);
 					overviewCam.gameObject.SetActive(true);
-					ceiling.SetActive(false);
+					for (int i=0; i<ceiling.Length; i++) {
+						ceiling[i].SetActive(false);
+					}
 				}
 				else if (state == State.Overview
 				    && touches[0].deltaPosition.y < -5.0f) {
 					state = State.CardboardVR;
-					ceiling.SetActive(true);
+					for (int i=0; i<ceiling.Length; i++) {
+						ceiling[i].SetActive(true);
+					}
 					overviewCam.gameObject.SetActive(false);
 					sphere.SetActive(false);
 					cardboardCam.SetActive(true);
