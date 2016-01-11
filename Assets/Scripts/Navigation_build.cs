@@ -41,10 +41,12 @@ public class Navigation_build : MonoBehaviour {
 
 		player = GameObject.FindGameObjectWithTag ("Player");
 
-		if (targetstring == "") {
+		if (Menuscript.searchstring != null) {
 		
-			if(Menuscript.searchstring!=null)targetstring = Menuscript.searchstring;
-			else targetstring = "B001";
+			targetstring = Menuscript.searchstring;
+
+		} else if (targetstring == "") {
+			targetstring = "B001";
 		}
 
 		startPath ();
