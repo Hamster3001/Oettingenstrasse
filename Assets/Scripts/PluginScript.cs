@@ -23,10 +23,10 @@ public class PluginScript : MonoBehaviour {
 	public Transform head;
 	public GameObject cardboardCam;
 	public GameObject sphere;
-
+	
 	private AndroidJavaObject bridge;
-
 	private State state;
+	private GameObject[] doors;
 
 	// Use this for initialization
 	void Start () {
@@ -39,6 +39,39 @@ public class PluginScript : MonoBehaviour {
 		if (!Menuscript.movementEnabled)
 			moveButton.SetActive(true);
 
+		if (!Menuscript.locationEnabled) {
+			doors = GameObject.FindGameObjectsWithTag("NamedDoor");
+			foreach (GameObject d in doors) {
+				if (d.name.Equals(Menuscript.locationstring)) {
+					cardboard.transform.position = new Vector3(d.transform.position.x,
+					                                           cardboard.transform.position.y,
+					                                           d.transform.position.z);
+					cardboard.transform.rotation = d.transform.rotation;
+
+					Transform child = d.transform.FindChild("Frame");
+					if (child == null) {
+						child = d.transform.FindChild("Cube");
+					}
+					if (child != null) {
+						float size = child.GetComponent<MeshRenderer>().bounds.size.z;
+						cardboard.transform.Translate((-size/2.0f)*Vector3.forward);
+						if (size < 1.0f)
+							cardboard.transform.Translate(Vector3.right);
+						else
+							cardboard.transform.Translate(size*Vector3.right);
+						Debug.Log("Size: " + size);
+					}
+					else {
+						cardboard.transform.Translate(Vector3.right);
+					}
+
+					cardboard.transform.Rotate(new Vector3(0, -90, 0));
+					cardboard.transform.eulerAngles = new Vector3(0, cardboard.transform.eulerAngles.y, 0);
+					break;
+				}
+			}
+		}
+
 		bridge = new AndroidJavaObject ("com.example.player.Bridge");
 		bridge.Call ("initializeFingerprints", textAsset.text);
 	}
@@ -46,6 +79,10 @@ public class PluginScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		textMiddle.text = cardboard.transform.position.x + " , " + cardboard.transform.position.z;
+
+		if (Input.GetKeyDown (KeyCode.Escape)) {
+			Application.LoadLevel(0);
+		}
 
 		Touch[] touches = Input.touches;
 		if (touches.Length == 1) {

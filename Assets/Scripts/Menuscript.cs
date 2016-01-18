@@ -431,10 +431,10 @@ public class Menuscript : MonoBehaviour {
 	};
 
 	public static string searchstring;
-	public static string location;
-	public static bool vrEnabled;
-	public static bool locationEnabled;
-	public static bool movementEnabled;
+	public static string locationstring;
+	public static bool vrEnabled = true;
+	public static bool locationEnabled = true;
+	public static bool movementEnabled = true;
 
 	public GameObject navDialog;
 	public GameObject locDialog;
@@ -446,9 +446,9 @@ public class Menuscript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		vrEnabled = toggleVR.isOn;
-		locationEnabled = toggleLocation.isOn;
-		movementEnabled = toggleMovement.isOn;
+		toggleVR.isOn = vrEnabled;
+		toggleLocation.isOn = locationEnabled;
+		toggleMovement.isOn = movementEnabled;
 	}
 	
 	// Update is called once per frame
@@ -479,7 +479,7 @@ public class Menuscript : MonoBehaviour {
 		string input = locInputField.text;
 		
 		if (roomlist.Contains(input)) {
-			location = input;
+			locationstring = input;
 
 			Application.LoadLevel(1);
 		}
