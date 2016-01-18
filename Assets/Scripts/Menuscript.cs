@@ -431,11 +431,15 @@ public class Menuscript : MonoBehaviour {
 	};
 
 	public static string searchstring;
+	public static string location;
 	public static bool vrEnabled;
 	public static bool locationEnabled;
 	public static bool movementEnabled;
 
-	public InputField inputField;
+	public GameObject navDialog;
+	public GameObject locDialog;
+	public InputField navInputField;
+	public InputField locInputField;
 	public Toggle toggleVR;
 	public Toggle toggleLocation;
 	public Toggle toggleMovement;
@@ -452,17 +456,41 @@ public class Menuscript : MonoBehaviour {
 		
 	}
 
-	public void CheckRoomNumber() {
-		string input = inputField.text;
+	public void StartNavigation() {
+		string input = navInputField.text;
 
 		if (roomlist.Contains(input)) {
 			searchstring = input;
 
+			if (locationEnabled) {
+				Application.LoadLevel(1);
+			}
+			else {
+				navDialog.SetActive(false);
+				locDialog.SetActive(true);
+			}
+		}
+		else {
+			navInputField.text = "Room not found";
+		}
+	}
+
+	public void StartLocation() {
+		string input = locInputField.text;
+		
+		if (roomlist.Contains(input)) {
+			location = input;
+
 			Application.LoadLevel(1);
 		}
 		else {
-			inputField.text = "Room not found";
+			locInputField.text = "Room not found";
 		}
+	}
+
+	public void ResetNav() {
+		navInputField.text = "Enter a roomnumber";
+		locInputField.text = "Enter a roomnumber";
 	}
 
 	public void EnableVR() {
