@@ -30,6 +30,8 @@ public class PluginScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		doors = GameObject.FindGameObjectsWithTag("NamedDoor");
+
 		cardboard.VRModeEnabled = Menuscript.vrEnabled;
 		if (cardboard.VRModeEnabled)
 			state = State.CardboardVR;
@@ -39,8 +41,10 @@ public class PluginScript : MonoBehaviour {
 		if (!Menuscript.movementEnabled)
 			moveButton.SetActive(true);
 
-		if (!Menuscript.locationEnabled) {
-			doors = GameObject.FindGameObjectsWithTag("NamedDoor");
+		if (Menuscript.locationEnabled) {
+			bridge.Call ("findPosition");
+		}
+		else if (!Menuscript.locationEnabled) {
 			foreach (GameObject d in doors) {
 				if (d.name.Equals(Menuscript.locationstring)) {
 					cardboard.transform.position = new Vector3(d.transform.position.x,
@@ -59,7 +63,6 @@ public class PluginScript : MonoBehaviour {
 							cardboard.transform.Translate(Vector3.right);
 						else
 							cardboard.transform.Translate(size*Vector3.right);
-						Debug.Log("Size: " + size);
 					}
 					else {
 						cardboard.transform.Translate(Vector3.right);
@@ -163,12 +166,60 @@ public class PluginScript : MonoBehaviour {
 		if (parameterArray.Length == 3) {
 			float xPosition = float.Parse(parameterArray[0]);
 			float zPosition = float.Parse(parameterArray[1]);
+
 			cardboard.transform.position = new Vector3(xPosition, cardboard.transform.position.y, zPosition);
+			GameObject door = getNearestNeighbor(cardboard.transform, doors).gameObject;
+
+			cardboard.transform.position = new Vector3(door.transform.position.x,
+			                                           cardboard.transform.position.y,
+			                                           door.transform.position.z);
+			cardboard.transform.rotation = door.transform.rotation;
+			
+			Transform child = door.transform.FindChild("Frame");
+			if (child == null) {
+				child = door.transform.FindChild("Cube");
+			}
+			if (child != null) {
+				float size = child.GetComponent<MeshRenderer>().bounds.size.z;
+				cardboard.transform.Translate((-size/2.0f)*Vector3.forward);
+				if (size < 1.0f)
+					cardboard.transform.Translate(Vector3.right);
+				else
+					cardboard.transform.Translate(size*Vector3.right);
+			}
+			else {
+				cardboard.transform.Translate(Vector3.right);
+			}
+			
+			cardboard.transform.Rotate(new Vector3(0, -90, 0));
+			cardboard.transform.eulerAngles = new Vector3(0, cardboard.transform.eulerAngles.y, 0);
 
 			textLeft.text = "Position: X=" + xPosition.ToString() + ", Z=" + zPosition.ToString() + "\n" + parameterArray[2];
+			textLeft.text = textLeft.text + "\n" + "Room: " + door.name;
 		}
 		else {
 			textLeft.text = "Wrong Parameter Size";
 		}
+	}
+
+	Transform getNearestNeighbor (Transform source, GameObject[] allwaypoints)
+	{
+		Transform bestTarget = null;
+		float closestDist = Mathf.Infinity;
+		Vector3 currentPosition = source.position;
+		foreach(GameObject potentialTarget in allwaypoints)
+		{
+			//float dist =  Vector3.Distance(potentialTarget.transform.position,currentPosition);
+			Vector3 directionToTarget = potentialTarget.transform.position - currentPosition;
+			directionToTarget.y =0.001f;
+			float dist = directionToTarget.sqrMagnitude;
+			if(dist < closestDist)
+			{
+				closestDist = dist;
+				bestTarget = potentialTarget.transform;
+			}
+		}
+		
+		return bestTarget;
 	}
 }
