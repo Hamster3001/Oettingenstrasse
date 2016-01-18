@@ -18,6 +18,7 @@ public class PluginScript : MonoBehaviour {
 
 	public Camera overviewCam;
 
+	public GameObject moveButton;
 	public Cardboard cardboard;
 	public Transform head;
 	public GameObject cardboardCam;
@@ -29,10 +30,16 @@ public class PluginScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		cardboard.VRModeEnabled = Menuscript.vrEnabled;
+		if (cardboard.VRModeEnabled)
+			state = State.CardboardVR;
+		else
+			state = State.Cardboard3D;
+
+		if (!Menuscript.movementEnabled)
+			moveButton.SetActive(true);
+
 		bridge = new AndroidJavaObject ("com.example.player.Bridge");
-
-		state = State.CardboardVR;
-
 		bridge.Call ("initializeFingerprints", textAsset.text);
 	}
 	
@@ -42,52 +49,58 @@ public class PluginScript : MonoBehaviour {
 
 		Touch[] touches = Input.touches;
 		if (touches.Length == 1) {
-			if (touches[0].phase.Equals (TouchPhase.Moved)) {
+			if (touches [0].phase.Equals (TouchPhase.Moved)) {
 				if (state != State.Overview
-				    && touches[0].deltaPosition.y > 5.0f) {
+					&& touches [0].deltaPosition.y > 5.0f) {
 					state = State.Overview;
-					cardboardCam.SetActive(false);
-					sphere.SetActive(true);
-					staircubes.SetActive(false);
-					overviewCam.gameObject.SetActive(true);
+					cardboardCam.SetActive (false);
+					sphere.SetActive (true);
+					overviewCam.gameObject.SetActive (true);
+					staircubes.SetActive (false);
 					for (int i=0; i<ceiling.Length; i++) {
-						ceiling[i].SetActive(false);
+						ceiling [i].SetActive (false);
 					}
-				}
-				else if (state == State.Overview
-				    && touches[0].deltaPosition.y < -5.0f) {
-					state = State.CardboardVR;
-					staircubes.SetActive(true);
+				} else if (state == State.Overview
+					&& touches [0].deltaPosition.y < -5.0f) {
+					if (cardboard.VRModeEnabled)
+						state = State.CardboardVR;
+					else
+						state = State.Cardboard3D;
+					staircubes.SetActive (true);
 					for (int i=0; i<ceiling.Length; i++) {
-						ceiling[i].SetActive(true);
+						ceiling [i].SetActive (true);
 					}
-					overviewCam.gameObject.SetActive(false);
-					sphere.SetActive(false);
-					cardboardCam.SetActive(true);
-					cardboard.VRModeEnabled = true;
+					overviewCam.gameObject.SetActive (false);
+					sphere.SetActive (false);
+					cardboardCam.SetActive (true);
 				}
-				else if (state == State.CardboardVR
-				    && touches[0].deltaPosition.x > 5.0f) {
-					state = State.Cardboard3D;
-					cardboard.VRModeEnabled = false;
-				}
-				else if (state == State.Cardboard3D
-				    && touches[0].deltaPosition.x < -5.0f) {
-					state = State.CardboardVR;
-					cardboard.VRModeEnabled = true;
-				}
-			}
-			else if (touches[0].phase.Equals (TouchPhase.Began)
-			         && touches[0].position.x < Screen.width/2
-			         && touches[0].position.y > Screen.height/2) {
+			} else if (touches [0].phase.Equals (TouchPhase.Began)
+				&& touches [0].position.x < Screen.width / 2
+				&& touches [0].position.y > Screen.height-200) {
 				textLeft.text = "Record Fingerprint";
 				bridge.Call ("recordFingerprint", cardboard.transform.position.x, cardboard.transform.position.z);
-			}
-			else if (touches[0].phase.Equals (TouchPhase.Began)
-			         && touches[0].position.x < Screen.width/2
-			         && touches[0].position.y < Screen.height/2) {
+			} else if (touches [0].phase.Equals (TouchPhase.Began)
+				&& touches [0].position.x < Screen.width / 2
+				&& touches [0].position.y < 200) {
 				textLeft.text = "Find Position";
 				bridge.Call ("findPosition");
+			}
+		}
+		else if (touches.Length == 2) {
+			if (state == State.Overview) {
+				float zoom = 0.0f;
+				if (touches[0].position.x < touches[1].position.x) {
+					zoom = touches[0].deltaPosition.x - touches[1].deltaPosition.x;
+				}
+				else if (touches[0].position.x > touches[1].position.x) {
+					zoom = touches[1].deltaPosition.x - touches[0].deltaPosition.x;
+				}
+
+				overviewCam.orthographicSize += zoom * 0.5f;
+				if (overviewCam.orthographicSize < 2)
+					overviewCam.orthographicSize = 2;
+				else if (overviewCam.orthographicSize > 40)
+					overviewCam.orthographicSize = 40;
 			}
 		}
 	}
