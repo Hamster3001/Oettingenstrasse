@@ -34,8 +34,8 @@ public class PluginScript : MonoBehaviour {
 	void Start () {
 		textMiddle.text = "Localization ...";
 		
-//		bridge = new AndroidJavaObject ("com.example.player.Bridge");
-//		bridge.Call ("initializeFingerprints", textAsset.text);
+		bridge = new AndroidJavaObject ("com.example.player.Bridge");
+		bridge.Call ("initializeFingerprints", textAsset.text);
 
 		doors = GameObject.FindGameObjectsWithTag("NamedDoor");
 
