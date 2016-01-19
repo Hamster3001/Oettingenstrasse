@@ -170,25 +170,6 @@ public class PluginScript : MonoBehaviour {
 				SetLeftText("Find Position");
 				bridge.Call ("findPosition");
 			}
-			else if (touches [0].phase.Equals (TouchPhase.Began)
-			           && touches[0].position.x > Screen.width / 2) {
-				if (pause) {
-					SetRightText("Start Tracking");
-					pause = false;
-					pauseButton.GetComponentInChildren<Text>().text = "Stop";
-					cardboard.enabled = true;
-					head.trackRotation = true;
-					bridge.Call ("trackMovement", Menuscript.movementEnabled);
-				}
-				else {
-					SetRightText("Stop Tracking");
-					pause = true;
-					pauseButton.GetComponentInChildren<Text>().text = "Start";
-					cardboard.enabled = false;
-					head.trackRotation = false;
-					bridge.Call ("trackMovement", false);
-				}
-			}
 		}
 		else if (touches.Length == 2) {
 			if (state == State.Overview) {
@@ -225,6 +206,25 @@ public class PluginScript : MonoBehaviour {
 		textRight.text = textRight.text + "\n" + text;
 	}
 
+	public void Pause() {
+		if (pause) {
+			SetRightText("Start Tracking");
+			pause = false;
+			pauseButton.GetComponentInChildren<Text>().text = "Stop";
+			cardboard.enabled = true;
+			head.trackRotation = true;
+			bridge.Call ("trackMovement", Menuscript.movementEnabled);
+		}
+		else {
+			SetRightText("Stop Tracking");
+			pause = true;
+			pauseButton.GetComponentInChildren<Text>().text = "Start";
+			cardboard.enabled = false;
+			head.trackRotation = false;
+			bridge.Call ("trackMovement", false);
+		}
+	}
+	
 	void InitPosition(GameObject door) {
 		cardboard.transform.position = new Vector3(door.transform.position.x,
 		                                           cardboard.transform.position.y,
