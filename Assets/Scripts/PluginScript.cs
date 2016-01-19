@@ -34,8 +34,8 @@ public class PluginScript : MonoBehaviour {
 	void Start () {
 		textMiddle.text = "Localization ...";
 		
-		bridge = new AndroidJavaObject ("com.example.player.Bridge");
-		bridge.Call ("initializeFingerprints", textAsset.text);
+//		bridge = new AndroidJavaObject ("com.example.player.Bridge");
+//		bridge.Call ("initializeFingerprints", textAsset.text);
 
 		doors = GameObject.FindGameObjectsWithTag("NamedDoor");
 
@@ -171,8 +171,7 @@ public class PluginScript : MonoBehaviour {
 				bridge.Call ("findPosition");
 			}
 			else if (touches [0].phase.Equals (TouchPhase.Began)
-			           && touches[0].position.x > Screen.width-220
-			           && touches[0].position.y > Screen.height-120) {
+			           && touches[0].position.x > Screen.width / 2) {
 				if (pause) {
 					SetRightText("Start Tracking");
 					pause = false;
