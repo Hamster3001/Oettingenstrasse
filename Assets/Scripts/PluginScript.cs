@@ -32,6 +32,8 @@ public class PluginScript : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
+		textMiddle.text = "Localization ...";
+		
 		bridge = new AndroidJavaObject ("com.example.player.Bridge");
 		bridge.Call ("initializeFingerprints", textAsset.text);
 
@@ -66,10 +68,67 @@ public class PluginScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		textMiddle.text = cardboard.transform.position.x + " , " + cardboard.transform.position.z;
+		//textMiddle.text = cardboard.transform.position.x + " , " + cardboard.transform.position.z;
 
 		if (Input.GetKeyDown (KeyCode.Escape)) {
-			Application.LoadLevel(0);
+			Application.LoadLevel (0);
+		} else if (Input.GetKeyDown (KeyCode.P)) {
+			if (pause) {
+				SetRightText ("Start Tracking");
+				pause = false;
+				pauseButton.GetComponentInChildren<Text> ().text = "Stop";
+				cardboard.enabled = true;
+				head.trackRotation = true;
+			} else {
+				SetRightText ("Stop Tracking");
+				pause = true;
+				pauseButton.GetComponentInChildren<Text> ().text = "Start";
+				cardboard.enabled = false;
+				head.trackRotation = false;
+			}
+		} else if (Input.GetKeyDown (KeyCode.O)) {
+			if (state != State.Overview) {
+				state = State.Overview;
+				cardboardCam.SetActive (false);
+				sphere.SetActive (true);
+				overviewCam.gameObject.SetActive (true);
+				staircubes.SetActive (false);
+				for (int i=0; i<ceiling.Length; i++) {
+					ceiling [i].SetActive (false);
+				}
+			} else if (state == State.Overview) {
+				if (cardboard.VRModeEnabled)
+					state = State.CardboardVR;
+				else
+					state = State.Cardboard3D;
+				staircubes.SetActive (true);
+				for (int i=0; i<ceiling.Length; i++) {
+					ceiling [i].SetActive (true);
+				}
+				overviewCam.gameObject.SetActive (false);
+				sphere.SetActive (false);
+				cardboardCam.SetActive (true);
+			}
+		} else if (Input.GetKey (KeyCode.Plus)) {
+			if (state == State.Overview) {
+				float zoom = -1.0f;
+				
+				overviewCam.orthographicSize += zoom * 0.5f;
+				if (overviewCam.orthographicSize < 2)
+					overviewCam.orthographicSize = 2;
+				else if (overviewCam.orthographicSize > 40)
+					overviewCam.orthographicSize = 40;
+			}
+		} else if (Input.GetKey (KeyCode.Minus)) {
+			if (state == State.Overview) {
+				float zoom = 1.0f;
+				
+				overviewCam.orthographicSize += zoom * 0.5f;
+				if (overviewCam.orthographicSize < 2)
+					overviewCam.orthographicSize = 2;
+				else if (overviewCam.orthographicSize > 40)
+					overviewCam.orthographicSize = 40;
+			}
 		}
 
 		Touch[] touches = Input.touches;
@@ -99,20 +158,18 @@ public class PluginScript : MonoBehaviour {
 					sphere.SetActive (false);
 					cardboardCam.SetActive (true);
 				}
-			} 
-			/*
-			else if (touches [0].phase.Equals (TouchPhase.Began)
-			           && touches [0].position.x < Screen.width / 2
-			           && touches [0].position.y > Screen.height-200) {
-				SetLeftText("Record Fingerprint");
-				bridge.Call ("recordFingerprint", cardboard.transform.position.x, cardboard.transform.position.z);
-			} else if (touches [0].phase.Equals (TouchPhase.Began)
-			           && touches [0].position.x < Screen.width / 2
-			           && touches [0].position.y < 200) {
-				SetLeftText("Find Position");
-				bridge.Call ("findPosition");
 			}
-			*/
+//			else if (touches [0].phase.Equals (TouchPhase.Began)
+//			           && touches [0].position.x < Screen.width / 2
+//			           && touches [0].position.y > Screen.height-200) {
+//				SetLeftText("Record Fingerprint");
+//				bridge.Call ("recordFingerprint", cardboard.transform.position.x, cardboard.transform.position.z);
+//			} else if (touches [0].phase.Equals (TouchPhase.Began)
+//			           && touches [0].position.x < Screen.width / 2
+//			           && touches [0].position.y < 200) {
+//				SetLeftText("Find Position");
+//				bridge.Call ("findPosition");
+//			}
 			else if (touches [0].phase.Equals (TouchPhase.Began)
 			           && touches[0].position.x > Screen.width-220
 			           && touches[0].position.y > Screen.height-120) {
@@ -196,6 +253,8 @@ public class PluginScript : MonoBehaviour {
 
 		cardboard.transform.Rotate(new Vector3(0, -90, 0));
 		cardboard.transform.eulerAngles = new Vector3(0, cardboard.transform.eulerAngles.y, 0);
+
+		textMiddle.text = "";
 	}
 
 	void SetPosition(string text) {

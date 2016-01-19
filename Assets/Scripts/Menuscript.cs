@@ -438,6 +438,7 @@ public class Menuscript : MonoBehaviour {
 
 	public GameObject navDialog;
 	public GameObject locDialog;
+	public GameObject loadingDialog;
 	public InputField navInputField;
 	public InputField locInputField;
 	public Toggle toggleVR;
@@ -463,6 +464,8 @@ public class Menuscript : MonoBehaviour {
 			searchstring = input;
 
 			if (locationEnabled) {
+				navDialog.SetActive(false);
+				loadingDialog.SetActive(true);
 				Application.LoadLevel(1);
 			}
 			else {
@@ -481,6 +484,8 @@ public class Menuscript : MonoBehaviour {
 		if (roomlist.Contains(input)) {
 			locationstring = input;
 
+			locDialog.SetActive(false);
+			loadingDialog.SetActive(true);
 			Application.LoadLevel(1);
 		}
 		else {
