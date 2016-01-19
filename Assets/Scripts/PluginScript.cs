@@ -159,17 +159,17 @@ public class PluginScript : MonoBehaviour {
 					cardboardCam.SetActive (true);
 				}
 			}
-//			else if (touches [0].phase.Equals (TouchPhase.Began)
-//			           && touches [0].position.x < Screen.width / 2
-//			           && touches [0].position.y > Screen.height-200) {
-//				SetLeftText("Record Fingerprint");
-//				bridge.Call ("recordFingerprint", cardboard.transform.position.x, cardboard.transform.position.z);
-//			} else if (touches [0].phase.Equals (TouchPhase.Began)
-//			           && touches [0].position.x < Screen.width / 2
-//			           && touches [0].position.y < 200) {
-//				SetLeftText("Find Position");
-//				bridge.Call ("findPosition");
-//			}
+			else if (touches [0].phase.Equals (TouchPhase.Began)
+			           && touches [0].position.x < Screen.width / 2
+			           && touches [0].position.y > Screen.height-200) {
+				SetLeftText("Record Fingerprint");
+				bridge.Call ("recordFingerprint", cardboard.transform.position.x, cardboard.transform.position.z);
+			} else if (touches [0].phase.Equals (TouchPhase.Began)
+			           && touches [0].position.x < Screen.width / 2
+			           && touches [0].position.y < 200) {
+				SetLeftText("Find Position");
+				bridge.Call ("findPosition");
+			}
 			else if (touches [0].phase.Equals (TouchPhase.Began)
 			           && touches[0].position.x > Screen.width-220
 			           && touches[0].position.y > Screen.height-120) {
