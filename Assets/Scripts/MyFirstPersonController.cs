@@ -151,21 +151,21 @@ namespace UnityStandardAssets.Characters.FirstPerson
 				horizontal = 0.0f;
 				vertical = 1.0f;
 			}
-
+			/*
 #if MOBILE_INPUT
 			if (!Menuscript.movementEnabled) {
 				Touch[] touches = Input.touches;
 				if (touches.Length == 1) {
 					if (touches[0].phase.Equals (TouchPhase.Stationary)
-					    && touches[0].position.x > Screen.width-200
-					    && touches[0].position.y < 100) {
+					    && touches[0].position.x > Screen.width-220
+					    && touches[0].position.y < 120) {
 						horizontal = 0.0f;
 						vertical = 1.0f;
 					}
 				}
 			}
 #endif
-
+			*/
             // set the desired speed to be walking
             speed = m_WalkSpeed;
             m_Input = new Vector2(horizontal, vertical);

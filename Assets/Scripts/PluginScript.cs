@@ -18,65 +18,50 @@ public class PluginScript : MonoBehaviour {
 
 	public Camera overviewCam;
 
-	public GameObject moveButton;
+	public Button moveButton;
+	public Button pauseButton;
 	public Cardboard cardboard;
-	public Transform head;
+	public CardboardHead head;
 	public GameObject cardboardCam;
 	public GameObject sphere;
 	
 	private AndroidJavaObject bridge;
-	private State state;
 	private GameObject[] doors;
-
+	private bool pause;
+	private State state;
+	
 	// Use this for initialization
 	void Start () {
+		bridge = new AndroidJavaObject ("com.example.player.Bridge");
+		bridge.Call ("initializeFingerprints", textAsset.text);
+
 		doors = GameObject.FindGameObjectsWithTag("NamedDoor");
 
+		pause = true;
+
+		// VR Mode
 		cardboard.VRModeEnabled = Menuscript.vrEnabled;
 		if (cardboard.VRModeEnabled)
 			state = State.CardboardVR;
 		else
 			state = State.Cardboard3D;
 
+		// Movement
 		if (!Menuscript.movementEnabled)
-			moveButton.SetActive(true);
+			moveButton.gameObject.SetActive(true);
 
+		// Location
 		if (Menuscript.locationEnabled) {
 			bridge.Call ("findPosition");
 		}
 		else if (!Menuscript.locationEnabled) {
 			foreach (GameObject d in doors) {
 				if (d.name.Equals(Menuscript.locationstring)) {
-					cardboard.transform.position = new Vector3(d.transform.position.x,
-					                                           cardboard.transform.position.y,
-					                                           d.transform.position.z);
-					cardboard.transform.rotation = d.transform.rotation;
-
-					Transform child = d.transform.FindChild("Frame");
-					if (child == null) {
-						child = d.transform.FindChild("Cube");
-					}
-					if (child != null) {
-						float size = child.GetComponent<MeshRenderer>().bounds.size.z;
-						cardboard.transform.Translate((-size/2.0f)*Vector3.forward);
-						if (size < 1.0f)
-							cardboard.transform.Translate(Vector3.right);
-						else
-							cardboard.transform.Translate(size*Vector3.right);
-					}
-					else {
-						cardboard.transform.Translate(Vector3.right);
-					}
-
-					cardboard.transform.Rotate(new Vector3(0, -90, 0));
-					cardboard.transform.eulerAngles = new Vector3(0, cardboard.transform.eulerAngles.y, 0);
+					InitPosition(d);
 					break;
 				}
 			}
 		}
-
-		bridge = new AndroidJavaObject ("com.example.player.Bridge");
-		bridge.Call ("initializeFingerprints", textAsset.text);
 	}
 	
 	// Update is called once per frame
@@ -114,16 +99,39 @@ public class PluginScript : MonoBehaviour {
 					sphere.SetActive (false);
 					cardboardCam.SetActive (true);
 				}
-			} else if (touches [0].phase.Equals (TouchPhase.Began)
-				&& touches [0].position.x < Screen.width / 2
-				&& touches [0].position.y > Screen.height-200) {
-				textLeft.text = "Record Fingerprint";
+			} 
+			/*
+			else if (touches [0].phase.Equals (TouchPhase.Began)
+			           && touches [0].position.x < Screen.width / 2
+			           && touches [0].position.y > Screen.height-200) {
+				SetLeftText("Record Fingerprint");
 				bridge.Call ("recordFingerprint", cardboard.transform.position.x, cardboard.transform.position.z);
 			} else if (touches [0].phase.Equals (TouchPhase.Began)
-				&& touches [0].position.x < Screen.width / 2
-				&& touches [0].position.y < 200) {
-				textLeft.text = "Find Position";
+			           && touches [0].position.x < Screen.width / 2
+			           && touches [0].position.y < 200) {
+				SetLeftText("Find Position");
 				bridge.Call ("findPosition");
+			}
+			*/
+			else if (touches [0].phase.Equals (TouchPhase.Began)
+			           && touches[0].position.x > Screen.width-220
+			           && touches[0].position.y > Screen.height-120) {
+				if (pause) {
+					SetRightText("Start Tracking");
+					pause = false;
+					pauseButton.GetComponentInChildren<Text>().text = "Stop";
+					cardboard.enabled = true;
+					head.trackRotation = true;
+					bridge.Call ("trackMovement", Menuscript.movementEnabled);
+				}
+				else {
+					SetRightText("Stop Tracking");
+					pause = true;
+					pauseButton.GetComponentInChildren<Text>().text = "Start";
+					cardboard.enabled = false;
+					head.trackRotation = false;
+					bridge.Call ("trackMovement", false);
+				}
 			}
 		}
 		else if (touches.Length == 2) {
@@ -161,6 +169,35 @@ public class PluginScript : MonoBehaviour {
 		textRight.text = textRight.text + "\n" + text;
 	}
 
+	void InitPosition(GameObject door) {
+		cardboard.transform.position = new Vector3(door.transform.position.x,
+		                                           cardboard.transform.position.y,
+		                                           door.transform.position.z);
+		cardboard.transform.rotation = door.transform.rotation;
+		
+		Transform child = door.transform.FindChild("Frame");
+		if (child == null) {
+			child = door.transform.FindChild("Cube");
+		}
+		if (child != null) {
+			float size = child.GetComponent<MeshRenderer>().bounds.size.z;
+			if (size < 1.0f)
+				cardboard.transform.Translate((-1.0f/2.0f)*Vector3.forward);
+			else
+				cardboard.transform.Translate((-size/2.0f)*Vector3.forward);
+			if (size < 1.5f)
+				cardboard.transform.Translate(1.5f*Vector3.right);
+			else
+				cardboard.transform.Translate(size*Vector3.right);
+		}
+		else {
+			cardboard.transform.Translate(1.5f*Vector3.right);
+		}
+
+		cardboard.transform.Rotate(new Vector3(0, -90, 0));
+		cardboard.transform.eulerAngles = new Vector3(0, cardboard.transform.eulerAngles.y, 0);
+	}
+
 	void SetPosition(string text) {
 		string[] parameterArray = text.Split (new char[]{'#'});
 		if (parameterArray.Length == 3) {
@@ -170,56 +207,30 @@ public class PluginScript : MonoBehaviour {
 			cardboard.transform.position = new Vector3(xPosition, cardboard.transform.position.y, zPosition);
 			GameObject door = getNearestNeighbor(cardboard.transform, doors).gameObject;
 
-			cardboard.transform.position = new Vector3(door.transform.position.x,
-			                                           cardboard.transform.position.y,
-			                                           door.transform.position.z);
-			cardboard.transform.rotation = door.transform.rotation;
-			
-			Transform child = door.transform.FindChild("Frame");
-			if (child == null) {
-				child = door.transform.FindChild("Cube");
-			}
-			if (child != null) {
-				float size = child.GetComponent<MeshRenderer>().bounds.size.z;
-				cardboard.transform.Translate((-size/2.0f)*Vector3.forward);
-				if (size < 1.0f)
-					cardboard.transform.Translate(Vector3.right);
-				else
-					cardboard.transform.Translate(size*Vector3.right);
-			}
-			else {
-				cardboard.transform.Translate(Vector3.right);
-			}
-			
-			cardboard.transform.Rotate(new Vector3(0, -90, 0));
-			cardboard.transform.eulerAngles = new Vector3(0, cardboard.transform.eulerAngles.y, 0);
+			InitPosition(door);
 
-			textLeft.text = "Position: X=" + xPosition.ToString() + ", Z=" + zPosition.ToString() + "\n" + parameterArray[2];
-			textLeft.text = textLeft.text + "\n" + "Room: " + door.name;
+			SetLeftText("Position: X=" + xPosition.ToString() + ", Z=" + zPosition.ToString() + "\n" + parameterArray[2]);
+			AddLeftText("Room: " + door.name);
 		}
 		else {
-			textLeft.text = "Wrong Parameter Size";
+			SetLeftText("Wrong Parameter Size");
 		}
 	}
 
-	Transform getNearestNeighbor (Transform source, GameObject[] allwaypoints)
-	{
+	Transform getNearestNeighbor(Transform source, GameObject[] allwaypoints) {
 		Transform bestTarget = null;
 		float closestDist = Mathf.Infinity;
 		Vector3 currentPosition = source.position;
-		foreach(GameObject potentialTarget in allwaypoints)
-		{
-			//float dist =  Vector3.Distance(potentialTarget.transform.position,currentPosition);
+
+		foreach (GameObject potentialTarget in allwaypoints) {
 			Vector3 directionToTarget = potentialTarget.transform.position - currentPosition;
 			directionToTarget.y =0.001f;
 			float dist = directionToTarget.sqrMagnitude;
-			if(dist < closestDist)
-			{
+			if(dist < closestDist) {
 				closestDist = dist;
 				bestTarget = potentialTarget.transform;
 			}
 		}
-		
 		return bestTarget;
 	}
 }

@@ -1,0 +1,33 @@
+fingerprint: -12,4,0,183.52837
+measure: 88:03:55:d4:2c:a4, -69
+measure: 34:81:c4:32:99:14, -80
+measure: c0:25:06:4f:89:5b, -79
+measure: 34:81:c4:03:f4:8a, -84
+measure: 08:96:d7:b1:3f:87, -91
+measure: 18:83:bf:d6:b4:ca, -93
+measure: 18:83:bf:d6:b4:cb, -93
+measure: 24:65:11:8e:17:d4, -92
+measure: 08:96:d7:d7:5a:fe, -90
+measure: fa:8f:ca:6d:72:5e, -92
+
+fingerprint: -9,2,0,299.50934
+measure: 88:03:55:d4:2c:a4, -65
+measure: 34:81:c4:32:99:14, -73
+measure: c0:25:06:4f:89:5b, -89
+measure: 34:81:c4:03:f4:8a, -79
+measure: 08:96:d7:d7:5a:fe, -93
+
+fingerprint: -16,3,0,116.31031
+measure: 88:03:55:d4:2c:a4, -66
+measure: 34:81:c4:32:99:14, -78
+measure: c0:25:06:4f:89:5b, -88
+measure: 08:96:d7:d7:5a:fe, -87
+measure: 24:65:11:8e:17:d4, -92
+
+fingerprint: -16,5,0,143.53886
+measure: 88:03:55:d4:2c:a4, -70
+measure: 34:81:c4:32:99:14, -83
+measure: c0:25:06:4f:89:5b, -86
+measure: 08:96:d7:d7:5a:fe, -89
+measure: 34:81:c4:03:f4:8a, -86
+
