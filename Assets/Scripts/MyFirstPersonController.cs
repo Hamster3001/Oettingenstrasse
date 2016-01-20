@@ -153,7 +153,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			}
 
 #if MOBILE_INPUT
-			if (!Menuscript.movementEnabled) {
+			if (!Menuscript.vrEnabled) {
 				Touch[] touches = Input.touches;
 				if (touches.Length == 1) {
 					if (touches[0].phase.Equals (TouchPhase.Stationary)

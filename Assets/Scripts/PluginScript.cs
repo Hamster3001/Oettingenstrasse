@@ -55,7 +55,7 @@ public class PluginScript : MonoBehaviour {
 			state = State.Cardboard3D;
 
 		// Movement
-		if (!Menuscript.movementEnabled)
+		if (!Menuscript.vrEnabled)
 			moveButton.gameObject.SetActive(true);
 
 		// Location
@@ -82,13 +82,15 @@ public class PluginScript : MonoBehaviour {
 			if (pause) {
 				SetRightText ("Start Tracking");
 				pause = false;
-				pauseButton.GetComponentInChildren<Text> ().text = "Stop";
+				//pauseButton.GetComponentInChildren<Text> ().text = "Stop";
+				pauseButton.GetComponent<Image>().sprite = stopsprite;
 				cardboard.enabled = true;
 				head.trackRotation = true;
 			} else {
 				SetRightText ("Stop Tracking");
 				pause = true;
-				pauseButton.GetComponentInChildren<Text> ().text = "Start";
+				//pauseButton.GetComponentInChildren<Text> ().text = "Start";
+				pauseButton.GetComponent<Image>().sprite = playsprite;
 				cardboard.enabled = false;
 				head.trackRotation = false;
 			}
@@ -216,7 +218,7 @@ public class PluginScript : MonoBehaviour {
 		if (pause) {
 			SetRightText("Start Tracking");
 			pause = false;
-			pauseButton.GetComponentInChildren<Text>().text = "Stop";
+			//pauseButton.GetComponentInChildren<Text>().text = "Stop";
 			pauseButton.GetComponent<Image>().sprite = stopsprite;
 			cardboard.enabled = true;
 			head.trackRotation = true;
@@ -225,7 +227,7 @@ public class PluginScript : MonoBehaviour {
 		else {
 			SetRightText("Stop Tracking");
 			pause = true;
-			pauseButton.GetComponentInChildren<Text>().text = "Start";
+			//pauseButton.GetComponentInChildren<Text>().text = "Start";
 			pauseButton.GetComponent<Image>().sprite = playsprite;
 			cardboard.enabled = false;
 			head.trackRotation = false;

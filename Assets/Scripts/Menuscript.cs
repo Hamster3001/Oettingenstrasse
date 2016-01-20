@@ -435,6 +435,7 @@ public class Menuscript : MonoBehaviour {
 	public static bool vrEnabled = true;
 	public static bool locationEnabled = true;
 	public static bool movementEnabled = true;
+	public static bool triggerEnabled = false;
 
 	public GameObject navDialog;
 	public GameObject locDialog;
@@ -444,12 +445,14 @@ public class Menuscript : MonoBehaviour {
 	public Toggle toggleVR;
 	public Toggle toggleLocation;
 	public Toggle toggleMovement;
+	public Toggle toggleTrigger;
 
 	// Use this for initialization
 	void Start () {
 		toggleVR.isOn = vrEnabled;
 		toggleLocation.isOn = locationEnabled;
 		toggleMovement.isOn = movementEnabled;
+		toggleTrigger.isOn = triggerEnabled;
 	}
 	
 	// Update is called once per frame
@@ -500,6 +503,16 @@ public class Menuscript : MonoBehaviour {
 
 	public void EnableVR() {
 		vrEnabled = toggleVR.isOn;
+		if (vrEnabled) {
+			toggleTrigger.gameObject.SetActive(true);
+		}
+		else {
+			toggleTrigger.gameObject.SetActive(false);
+		}
+	}
+
+	public void EnableTrigger() {
+		triggerEnabled = toggleTrigger.isOn;
 	}
 
 	public void EnableLocation() {
