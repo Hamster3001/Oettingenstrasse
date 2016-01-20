@@ -509,4 +509,10 @@ public class Menuscript : MonoBehaviour {
 	public void EnableMovement() {
 		movementEnabled = toggleMovement.isOn;
 	}
+
+	public void closeApp(){
+
+		Application.Quit();
+
+	}
 }
