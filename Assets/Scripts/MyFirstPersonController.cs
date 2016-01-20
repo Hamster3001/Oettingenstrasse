@@ -158,7 +158,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 				if (touches.Length == 1) {
 					if (touches[0].phase.Equals (TouchPhase.Stationary)
 					    && touches[0].position.x > Screen.width-220
-					    && touches[0].position.y < 120) {
+					    && (touches[0].position.y < 200 || touches[0].position.y > Screen.height-200)) {
 						horizontal = 0.0f;
 						vertical = 1.0f;
 					}
