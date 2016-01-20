@@ -29,6 +29,8 @@ public class PluginScript : MonoBehaviour {
 	private GameObject[] doors;
 	private bool pause;
 	private State state;
+	private Sprite playsprite;
+	private Sprite stopsprite;
 	
 	// Use this for initialization
 	void Start () {
@@ -40,6 +42,10 @@ public class PluginScript : MonoBehaviour {
 		doors = GameObject.FindGameObjectsWithTag("NamedDoor");
 
 		pause = true;
+
+		playsprite = Resources.Load("play",typeof(Sprite)) as Sprite;
+		stopsprite = Resources.Load("stop",typeof(Sprite)) as Sprite;
+
 
 		// VR Mode
 		cardboard.VRModeEnabled = Menuscript.vrEnabled;
@@ -211,6 +217,7 @@ public class PluginScript : MonoBehaviour {
 			SetRightText("Start Tracking");
 			pause = false;
 			pauseButton.GetComponentInChildren<Text>().text = "Stop";
+			pauseButton.GetComponent<Image>().sprite = stopsprite;
 			cardboard.enabled = true;
 			head.trackRotation = true;
 			bridge.Call ("trackMovement", Menuscript.movementEnabled);
@@ -219,6 +226,7 @@ public class PluginScript : MonoBehaviour {
 			SetRightText("Stop Tracking");
 			pause = true;
 			pauseButton.GetComponentInChildren<Text>().text = "Start";
+			pauseButton.GetComponent<Image>().sprite = playsprite;
 			cardboard.enabled = false;
 			head.trackRotation = false;
 			bridge.Call ("trackMovement", false);
