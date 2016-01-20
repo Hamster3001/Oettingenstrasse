@@ -157,8 +157,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 				Touch[] touches = Input.touches;
 				if (touches.Length == 1) {
 					if (touches[0].phase.Equals (TouchPhase.Stationary)
-					    && touches[0].position.x > Screen.width-220
-					    && (touches[0].position.y < 200 || touches[0].position.y > Screen.height-200)) {
+					    && touches[0].position.x > Screen.width-200
+					    && touches[0].position.y < 100) {
 						horizontal = 0.0f;
 						vertical = 1.0f;
 					}

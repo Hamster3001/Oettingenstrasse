@@ -35,6 +35,9 @@ public class PluginScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		textMiddle.text = "Localization ...";
+
+		pauseButton.transform.position = new Vector3 (Screen.width/2, 40, 0);
+		moveButton.transform.position = new Vector3 (Screen.width-100, 50, 0);
 		
 		bridge = new AndroidJavaObject ("com.example.player.Bridge");
 		bridge.Call ("initializeFingerprints", textAsset.text);
@@ -169,12 +172,12 @@ public class PluginScript : MonoBehaviour {
 			}
 			else if (touches [0].phase.Equals (TouchPhase.Began)
 			           && touches [0].position.x < 200
-			           && touches [0].position.y > Screen.height-200) {
+			           && touches [0].position.y > Screen.height-100) {
 				SetLeftText("Record Fingerprint");
 				bridge.Call ("recordFingerprint", cardboard.transform.position.x, cardboard.transform.position.z);
 			} else if (touches [0].phase.Equals (TouchPhase.Began)
 			           && touches [0].position.x < 200
-			           && touches [0].position.y < 200) {
+			           && touches [0].position.y < 100) {
 				SetLeftText("Find Position");
 				bridge.Call ("findPosition");
 			}
