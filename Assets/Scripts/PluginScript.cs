@@ -40,14 +40,14 @@ public class PluginScript : MonoBehaviour {
 		pauseButton.transform.position = new Vector3 (Screen.width/2, 40, 0);
 		moveButton.transform.position = new Vector3 (Screen.width-100, 100, 0);
 		
-		//bridge = new AndroidJavaObject ("com.example.player.Bridge");
-		//bridge.Call ("initializeFingerprints", textAsset.text);
+		bridge = new AndroidJavaObject ("com.example.player.Bridge");
+		bridge.Call ("initializeFingerprints", textAsset.text);
 
 		doors = GameObject.FindGameObjectsWithTag("NamedDoor");
 
 		pause = true;
 		pressedPause = false;
-		moveButton.enabled = false;
+		moveButton.interactable = false;
 
 		playsprite = Resources.Load("play",typeof(Sprite)) as Sprite;
 		stopsprite = Resources.Load("stop",typeof(Sprite)) as Sprite;
@@ -88,7 +88,7 @@ public class PluginScript : MonoBehaviour {
 				pauseButton.GetComponent<Image>().sprite = stopsprite;
 				cardboard.enabled = true;
 				head.trackRotation = true;
-				moveButton.enabled = true;
+				moveButton.interactable = true;
 				//textMiddle.text = "";
 				bridge.Call ("trackMovement", Menuscript.movementEnabled);
 			}
@@ -98,14 +98,14 @@ public class PluginScript : MonoBehaviour {
 				pauseButton.GetComponent<Image>().sprite = playsprite;
 				cardboard.enabled = false;
 				head.trackRotation = false;
-				moveButton.enabled = false;
+				moveButton.interactable = false;
 				bridge.Call ("trackMovement", false);
 			}
 		}
 
 		if (Input.GetKeyDown (KeyCode.Escape)) {
 			Application.LoadLevel (0);
-		} else if (Input.GetKeyDown (KeyCode.O)) {
+		} else if (Input.GetKeyDown (KeyCode.O) && !Menuscript.vrEnabled) {
 			if (state != State.Overview) {
 				state = State.Overview;
 				cardboardCam.SetActive (false);
@@ -152,7 +152,7 @@ public class PluginScript : MonoBehaviour {
 
 		Touch[] touches = Input.touches;
 		if (touches.Length == 1) {
-			if (touches [0].phase.Equals (TouchPhase.Moved)) {
+			if (touches [0].phase.Equals (TouchPhase.Moved) && !Menuscript.vrEnabled) {
 				if (state != State.Overview
 					&& touches [0].deltaPosition.y > 5.0f) {
 					state = State.Overview;
@@ -226,7 +226,7 @@ public class PluginScript : MonoBehaviour {
 	}
 
 	IEnumerator Wait() {
-		pauseButton.enabled = false;
+		pauseButton.interactable = false;
 		pauseButton.GetComponent<Image> ().sprite = stopsprite;
 		for (int i=10; i>=0; i--) {
 			yield return new WaitForSeconds (1);
@@ -240,8 +240,8 @@ public class PluginScript : MonoBehaviour {
 		head.trackRotation = true;
 		textMiddle.text = "";
 		pressedPause = false;
-		pauseButton.enabled = true;
-		moveButton.enabled = true;
+		pauseButton.interactable = true;
+		moveButton.interactable = true;
 		bridge.Call ("trackMovement", Menuscript.movementEnabled);
 	}
 
@@ -249,7 +249,20 @@ public class PluginScript : MonoBehaviour {
 		if (!pressedPause) {
 			pressedPause = true;
 			if (pause) {
-				StartCoroutine(Wait());
+				if (Menuscript.vrEnabled) {
+					StartCoroutine(Wait());
+				}
+				else {
+					SetRightText ("Start Tracking");
+					pause = false;
+					pauseButton.GetComponent<Image> ().sprite = stopsprite;
+					cardboard.enabled = true;
+					head.trackRotation = true;
+					textMiddle.text = "";
+					pressedPause = false;
+					moveButton.interactable = true;
+					bridge.Call ("trackMovement", Menuscript.movementEnabled);
+				}
 			} else {
 				SetRightText ("Stop Tracking");
 				pause = true;
@@ -257,7 +270,7 @@ public class PluginScript : MonoBehaviour {
 				cardboard.enabled = false;
 				head.trackRotation = false;
 				pressedPause = false;
-				moveButton.enabled = false;
+				moveButton.interactable = false;
 				bridge.Call ("trackMovement", false);
 			}
 		}
