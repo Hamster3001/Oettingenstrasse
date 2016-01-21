@@ -27,7 +27,7 @@ public class PluginScript : MonoBehaviour {
 	
 	private AndroidJavaObject bridge;
 	private GameObject[] doors;
-	private bool pause;
+	public static bool pause;
 	private bool pressedPause;
 	private State state;
 	private Sprite playsprite;
@@ -40,13 +40,14 @@ public class PluginScript : MonoBehaviour {
 		pauseButton.transform.position = new Vector3 (Screen.width/2, 40, 0);
 		moveButton.transform.position = new Vector3 (Screen.width-100, 100, 0);
 		
-		bridge = new AndroidJavaObject ("com.example.player.Bridge");
-		bridge.Call ("initializeFingerprints", textAsset.text);
+		//bridge = new AndroidJavaObject ("com.example.player.Bridge");
+		//bridge.Call ("initializeFingerprints", textAsset.text);
 
 		doors = GameObject.FindGameObjectsWithTag("NamedDoor");
 
 		pause = true;
 		pressedPause = false;
+		moveButton.enabled = false;
 
 		playsprite = Resources.Load("play",typeof(Sprite)) as Sprite;
 		stopsprite = Resources.Load("stop",typeof(Sprite)) as Sprite;
@@ -84,20 +85,20 @@ public class PluginScript : MonoBehaviour {
 			if (pause) {
 				SetRightText("Start Tracking");
 				pause = false;
-				//pauseButton.GetComponentInChildren<Text>().text = "Stop";
 				pauseButton.GetComponent<Image>().sprite = stopsprite;
 				cardboard.enabled = true;
 				head.trackRotation = true;
+				moveButton.enabled = true;
 				//textMiddle.text = "";
 				bridge.Call ("trackMovement", Menuscript.movementEnabled);
 			}
 			else {
 				SetRightText("Stop Tracking");
 				pause = true;
-				//pauseButton.GetComponentInChildren<Text>().text = "Start";
 				pauseButton.GetComponent<Image>().sprite = playsprite;
 				cardboard.enabled = false;
 				head.trackRotation = false;
+				moveButton.enabled = false;
 				bridge.Call ("trackMovement", false);
 			}
 		}
@@ -225,22 +226,22 @@ public class PluginScript : MonoBehaviour {
 	}
 
 	IEnumerator Wait() {
-		pauseButton.gameObject.SetActive (false);
-		yield return new WaitForSeconds (1);
-		for (int i=10; i>0; i--) {
-			textMiddle.text = i.ToString();
+		pauseButton.enabled = false;
+		pauseButton.GetComponent<Image> ().sprite = stopsprite;
+		for (int i=10; i>=0; i--) {
 			yield return new WaitForSeconds (1);
+			textMiddle.text = i.ToString();
 		}
+		yield return new WaitForSeconds (1);
 
 		SetRightText ("Start Tracking");
 		pause = false;
-		pauseButton.gameObject.SetActive (true);
-		//pauseButton.GetComponentInChildren<Text>().text = "Stop";
-		pauseButton.GetComponent<Image> ().sprite = stopsprite;
 		cardboard.enabled = true;
 		head.trackRotation = true;
 		textMiddle.text = "";
 		pressedPause = false;
+		pauseButton.enabled = true;
+		moveButton.enabled = true;
 		bridge.Call ("trackMovement", Menuscript.movementEnabled);
 	}
 
@@ -252,11 +253,11 @@ public class PluginScript : MonoBehaviour {
 			} else {
 				SetRightText ("Stop Tracking");
 				pause = true;
-				//pauseButton.GetComponentInChildren<Text>().text = "Start";
 				pauseButton.GetComponent<Image> ().sprite = playsprite;
 				cardboard.enabled = false;
 				head.trackRotation = false;
 				pressedPause = false;
+				moveButton.enabled = false;
 				bridge.Call ("trackMovement", false);
 			}
 		}

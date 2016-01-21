@@ -139,44 +139,47 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void GetInput(out float speed)
         {
-			// Test
-			if (Input.GetKeyDown (KeyCode.V))
-				MakeStep ();
+			float horizontal = 0.0f;
+			float vertical = 0.0f;
 
-            // Read input
-            float horizontal = CrossPlatformInputManager.GetAxis("Horizontal");
-            float vertical = CrossPlatformInputManager.GetAxis("Vertical");
+			// Read input
+			if (!PluginScript.pause) {
+				horizontal = CrossPlatformInputManager.GetAxis ("Horizontal");
+				vertical = CrossPlatformInputManager.GetAxis ("Vertical");
+			}
 
 			if (step) {
 				horizontal = 0.0f;
 				vertical = 1.0f;
 			}
 
-			if (Input.GetButton ("Move")) {
+			if (Input.GetButton ("Move") && !PluginScript.pause) {
 				horizontal = 0.0f;
 				vertical = 1.0f;
 			}
 
 #if MOBILE_INPUT
-			if (!Menuscript.vrEnabled) {
-				Touch[] touches = Input.touches;
-				if (touches.Length == 1) {
-					if (touches[0].phase.Equals (TouchPhase.Stationary)
-					    && touches[0].position.x > Screen.width-200
-					    && touches[0].position.y < 200) {
-						horizontal = 0.0f;
-						vertical = 1.0f;
+			if (!PluginScript.pause) {
+				if (!Menuscript.vrEnabled) {
+					Touch[] touches = Input.touches;
+					if (touches.Length == 1) {
+						if (touches[0].phase.Equals (TouchPhase.Stationary)
+						    && touches[0].position.x > Screen.width-200
+						    && touches[0].position.y < 200) {
+							horizontal = 0.0f;
+							vertical = 1.0f;
+						}
 					}
 				}
-			}
-			else if (Menuscript.triggerEnabled) {
-				Touch[] touches = Input.touches;
-				if (touches.Length == 1) {
-					if (touches[0].phase.Equals (TouchPhase.Stationary)
-					    && touches[0].position.x > Screen.width/2
-					    && touches[0].position.y > Screen.height/2) {
-						horizontal = 0.0f;
-						vertical = 1.0f;
+				else if (Menuscript.triggerEnabled) {
+					Touch[] touches = Input.touches;
+					if (touches.Length == 1) {
+						if (touches[0].phase.Equals (TouchPhase.Stationary)
+						    && touches[0].position.x > Screen.width/2
+						    && touches[0].position.y > Screen.height/2) {
+							horizontal = 0.0f;
+							vertical = 1.0f;
+						}
 					}
 				}
 			}
