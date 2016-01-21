@@ -34,10 +34,10 @@ public class PluginScript : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		textMiddle.text = "Localization ...";
+		//textMiddle.text = "Localization ...";
 
 		pauseButton.transform.position = new Vector3 (Screen.width/2, 40, 0);
-		moveButton.transform.position = new Vector3 (Screen.width-100, 50, 0);
+		moveButton.transform.position = new Vector3 (Screen.width-100, 100, 0);
 		
 		bridge = new AndroidJavaObject ("com.example.player.Bridge");
 		bridge.Call ("initializeFingerprints", textAsset.text);
@@ -48,7 +48,6 @@ public class PluginScript : MonoBehaviour {
 
 		playsprite = Resources.Load("play",typeof(Sprite)) as Sprite;
 		stopsprite = Resources.Load("stop",typeof(Sprite)) as Sprite;
-
 
 		// VR Mode
 		cardboard.VRModeEnabled = Menuscript.vrEnabled;
@@ -225,6 +224,7 @@ public class PluginScript : MonoBehaviour {
 			pauseButton.GetComponent<Image>().sprite = stopsprite;
 			cardboard.enabled = true;
 			head.trackRotation = true;
+			//textMiddle.text = "";
 			bridge.Call ("trackMovement", Menuscript.movementEnabled);
 		}
 		else {
@@ -266,7 +266,7 @@ public class PluginScript : MonoBehaviour {
 		cardboard.transform.Rotate(new Vector3(0, -90, 0));
 		cardboard.transform.eulerAngles = new Vector3(0, cardboard.transform.eulerAngles.y, 0);
 
-		textMiddle.text = "";
+		//textMiddle.text = "Place yourself in front of door " + door.name;
 	}
 
 	void SetPosition(string text) {
