@@ -28,6 +28,7 @@ public class PluginScript : MonoBehaviour {
 	private AndroidJavaObject bridge;
 	private GameObject[] doors;
 	private bool pause;
+	private bool pressedPause;
 	private State state;
 	private Sprite playsprite;
 	private Sprite stopsprite;
@@ -45,6 +46,7 @@ public class PluginScript : MonoBehaviour {
 		doors = GameObject.FindGameObjectsWithTag("NamedDoor");
 
 		pause = true;
+		pressedPause = false;
 
 		playsprite = Resources.Load("play",typeof(Sprite)) as Sprite;
 		stopsprite = Resources.Load("stop",typeof(Sprite)) as Sprite;
@@ -222,25 +224,39 @@ public class PluginScript : MonoBehaviour {
 		//textRight.text = textRight.text + "\n" + text;
 	}
 
-	public void Pause() {
-		if (pause) {
-			SetRightText("Start Tracking");
-			pause = false;
-			//pauseButton.GetComponentInChildren<Text>().text = "Stop";
-			pauseButton.GetComponent<Image>().sprite = stopsprite;
-			cardboard.enabled = true;
-			head.trackRotation = true;
-			//textMiddle.text = "";
-			bridge.Call ("trackMovement", Menuscript.movementEnabled);
+	IEnumerator Wait() {
+		yield return new WaitForSeconds (1);
+		for (int i=10; i>0; i--) {
+			textMiddle.text = i.ToString();
+			yield return new WaitForSeconds (1);
 		}
-		else {
-			SetRightText("Stop Tracking");
-			pause = true;
-			//pauseButton.GetComponentInChildren<Text>().text = "Start";
-			pauseButton.GetComponent<Image>().sprite = playsprite;
-			cardboard.enabled = false;
-			head.trackRotation = false;
-			bridge.Call ("trackMovement", false);
+
+		SetRightText ("Start Tracking");
+		pause = false;
+		//pauseButton.GetComponentInChildren<Text>().text = "Stop";
+		pauseButton.GetComponent<Image> ().sprite = stopsprite;
+		cardboard.enabled = true;
+		head.trackRotation = true;
+		textMiddle.text = "";
+		pressedPause = false;
+		bridge.Call ("trackMovement", Menuscript.movementEnabled);
+	}
+
+	public void Pause() {
+		if (!pressedPause) {
+			pressedPause = true;
+			if (pause) {
+				StartCoroutine(Wait());
+			} else {
+				SetRightText ("Stop Tracking");
+				pause = true;
+				//pauseButton.GetComponentInChildren<Text>().text = "Start";
+				pauseButton.GetComponent<Image> ().sprite = playsprite;
+				cardboard.enabled = false;
+				head.trackRotation = false;
+				pressedPause = false;
+				bridge.Call ("trackMovement", false);
+			}
 		}
 	}
 	
