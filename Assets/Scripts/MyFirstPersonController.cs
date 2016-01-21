@@ -152,6 +152,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
 				vertical = 1.0f;
 			}
 
+			if (Input.GetButton ("Move")) {
+				horizontal = 0.0f;
+				vertical = 1.0f;
+			}
+
 #if MOBILE_INPUT
 			if (!Menuscript.vrEnabled) {
 				Touch[] touches = Input.touches;

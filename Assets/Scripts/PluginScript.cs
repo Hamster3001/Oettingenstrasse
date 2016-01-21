@@ -78,24 +78,30 @@ public class PluginScript : MonoBehaviour {
 	void Update () {
 		//textMiddle.text = cardboard.transform.position.x + " , " + cardboard.transform.position.z;
 
-		if (Input.GetKeyDown (KeyCode.Escape)) {
-			Application.LoadLevel (0);
-		} else if (Input.GetKeyDown (KeyCode.P)) {
+		if (Input.GetButtonDown ("Pause")) {
 			if (pause) {
-				SetRightText ("Start Tracking");
+				SetRightText("Start Tracking");
 				pause = false;
-				//pauseButton.GetComponentInChildren<Text> ().text = "Stop";
+				//pauseButton.GetComponentInChildren<Text>().text = "Stop";
 				pauseButton.GetComponent<Image>().sprite = stopsprite;
 				cardboard.enabled = true;
 				head.trackRotation = true;
-			} else {
-				SetRightText ("Stop Tracking");
+				//textMiddle.text = "";
+				bridge.Call ("trackMovement", Menuscript.movementEnabled);
+			}
+			else {
+				SetRightText("Stop Tracking");
 				pause = true;
-				//pauseButton.GetComponentInChildren<Text> ().text = "Start";
+				//pauseButton.GetComponentInChildren<Text>().text = "Start";
 				pauseButton.GetComponent<Image>().sprite = playsprite;
 				cardboard.enabled = false;
 				head.trackRotation = false;
+				bridge.Call ("trackMovement", false);
 			}
+		}
+
+		if (Input.GetKeyDown (KeyCode.Escape)) {
+			Application.LoadLevel (0);
 		} else if (Input.GetKeyDown (KeyCode.O)) {
 			if (state != State.Overview) {
 				state = State.Overview;
@@ -201,19 +207,19 @@ public class PluginScript : MonoBehaviour {
 	}
 
 	void SetLeftText(string text) {
-		textLeft.text = text;
+		//textLeft.text = text;
 	}
 	
 	void SetRightText(string text) {
-		textRight.text = text;
+		//textRight.text = text;
 	}
 
 	void AddLeftText(string text) {
-		textLeft.text = textLeft.text + "\n" + text;
+		//textLeft.text = textLeft.text + "\n" + text;
 	}
 
 	void AddRightText(string text) {
-		textRight.text = textRight.text + "\n" + text;
+		//textRight.text = textRight.text + "\n" + text;
 	}
 
 	public void Pause() {
