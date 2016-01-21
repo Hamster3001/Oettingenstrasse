@@ -225,6 +225,7 @@ public class PluginScript : MonoBehaviour {
 	}
 
 	IEnumerator Wait() {
+		pauseButton.gameObject.SetActive (false);
 		yield return new WaitForSeconds (1);
 		for (int i=10; i>0; i--) {
 			textMiddle.text = i.ToString();
@@ -233,6 +234,7 @@ public class PluginScript : MonoBehaviour {
 
 		SetRightText ("Start Tracking");
 		pause = false;
+		pauseButton.gameObject.SetActive (true);
 		//pauseButton.GetComponentInChildren<Text>().text = "Stop";
 		pauseButton.GetComponent<Image> ().sprite = stopsprite;
 		cardboard.enabled = true;
