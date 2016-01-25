@@ -49,8 +49,10 @@ public class Navigation_build : MonoBehaviour {
 			targetstring = "B001";
 		}
 
-		startPath ();
-	
+		if (targetstring == "")
+			hideAllWaypoints ();
+		else
+			startPath ();
 	}
 	
     Transform[] getStartPoints(Transform source,Transform target){

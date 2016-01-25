@@ -7,6 +7,7 @@ using System.Linq;
 public class Menuscript : MonoBehaviour {
 
 	public static string[] roomlist = {
+		"",
 		"001",
 		"002",
 		"003",

@@ -15,6 +15,7 @@ public class PluginScript : MonoBehaviour {
 	
 	public GameObject[] ceiling;
 	public GameObject staircubes;
+	public GameObject entrance;
 
 	public Camera overviewCam;
 
@@ -39,7 +40,8 @@ public class PluginScript : MonoBehaviour {
 
 		pauseButton.transform.position = new Vector3 (Screen.width/2, 40, 0);
 		moveButton.transform.position = new Vector3 (Screen.width-100, 100, 0);
-		
+
+		// Für Editor folgende zwei Zeilen auskommentieren
 		bridge = new AndroidJavaObject ("com.example.player.Bridge");
 		bridge.Call ("initializeFingerprints", textAsset.text);
 
@@ -71,9 +73,10 @@ public class PluginScript : MonoBehaviour {
 			foreach (GameObject d in doors) {
 				if (d.name.Equals(Menuscript.locationstring)) {
 					InitPosition(d);
-					break;
+					return;
 				}
 			}
+			InitPosition(entrance);
 		}
 	}
 	
