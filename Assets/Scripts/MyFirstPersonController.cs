@@ -8,6 +8,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 {
     public class MyFirstPersonController : MonoBehaviour
     {
+		[SerializeField] private Transform reference;
 		[SerializeField] private float stepSize;					// in meters
         [SerializeField] private float m_WalkSpeed;
         [SerializeField] private float m_StickToGroundForce;
@@ -67,11 +68,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void FixedUpdate()
         {
+			reference.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+
             float speed;
             GetInput(out speed);
 
             // always move along the camera forward as it is the direction that it being aimed at
-			Vector3 desiredMove = transform.forward*m_Input.y + transform.right*m_Input.x;
+			Vector3 desiredMove = reference.forward*m_Input.y + reference.right*m_Input.x;
 
             // get a normal for the surface that is being touched to move along it
             RaycastHit hitInfo;
