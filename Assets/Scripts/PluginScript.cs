@@ -282,21 +282,34 @@ public class PluginScript : MonoBehaviour {
 			child = door.transform.FindChild("Cube");
 		}
 		if (child != null) {
-			float size = child.GetComponent<MeshRenderer>().bounds.size.z;
-			if (size < 1.0f)
-				cardboard.transform.Translate((-1.0f/2.0f)*Vector3.forward);
-			else
-				cardboard.transform.Translate((-size/2.0f)*Vector3.forward);
-			if (size < 1.5f)
-				cardboard.transform.Translate(1.5f*Vector3.right);
-			else
-				cardboard.transform.Translate(size*Vector3.right);
+			if (child.name.Equals("Frame")) {
+				float size = child.GetComponent<MeshRenderer>().bounds.size.z;
+				if (size < 1.0f)
+					cardboard.transform.Translate((-1.0f/2.0f)*Vector3.forward);
+				else
+					cardboard.transform.Translate((-size/2.0f)*Vector3.forward);
+				if (size < 1.5f)
+					cardboard.transform.Translate(1.5f*Vector3.right);
+				else
+					cardboard.transform.Translate(size*Vector3.right);
+
+				cardboard.transform.Rotate(new Vector3(0, -90, 0));
+			}
+			else {
+				float size = child.GetComponent<MeshRenderer>().bounds.size.z;
+				if (size < 1.5f)
+					cardboard.transform.Translate(-1.5f*Vector3.right);
+				else
+					cardboard.transform.Translate(-size*Vector3.right);
+
+				cardboard.transform.Rotate(new Vector3(0, 90, 0));
+			}
 		}
 		else {
 			cardboard.transform.Translate(1.5f*Vector3.right);
+			cardboard.transform.Rotate(new Vector3(0, -90, 0));
 		}
 
-		cardboard.transform.Rotate(new Vector3(0, -90, 0));
 		cardboard.transform.eulerAngles = new Vector3(0, cardboard.transform.eulerAngles.y, 0);
 
 		//textMiddle.text = "Place yourself in front of door " + door.name;
