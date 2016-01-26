@@ -85,6 +85,9 @@ public class PluginScript : MonoBehaviour {
 	void Update () {
 		//textMiddle.text = cardboard.transform.position.x + " , " + cardboard.transform.position.z;
 
+//		SetLeftText ("Cardboard: " + cardboard.transform.eulerAngles.y);
+//		AddLeftText ("Head: " + head.transform.eulerAngles.y);
+
 		if (Input.GetButtonDown ("Pause")) {
 			if (pause) {
 				SetRightText("Start Tracking");
@@ -214,19 +217,19 @@ public class PluginScript : MonoBehaviour {
 	}
 
 	void SetLeftText(string text) {
-		//textLeft.text = text;
+//		textLeft.text = text;
 	}
 	
 	void SetRightText(string text) {
-		//textRight.text = text;
+//		textRight.text = text;
 	}
 
 	void AddLeftText(string text) {
-		//textLeft.text = textLeft.text + "\n" + text;
+//		textLeft.text = textLeft.text + "\n" + text;
 	}
 
 	void AddRightText(string text) {
-		//textRight.text = textRight.text + "\n" + text;
+//		textRight.text = textRight.text + "\n" + text;
 	}
 
 	IEnumerator Wait() {
@@ -235,8 +238,21 @@ public class PluginScript : MonoBehaviour {
 			textMiddle.text = i.ToString();
 		}
 		yield return new WaitForSeconds (1);
-	}
 
+		SetRightText ("Start Tracking");
+		pause = false;
+		cardboard.enabled = true;
+		head.trackRotation = true;
+		textMiddle.text = "";
+		pressedPause = false;
+		pauseButton.interactable = true;
+		moveButton.interactable = true;
+		bridge.Call ("trackMovement", Menuscript.movementEnabled);
+		cardboard.transform.eulerAngles = new Vector3(cardboard.transform.eulerAngles.x,
+		                                              head.transform.eulerAngles.y,
+		                                              cardboard.transform.eulerAngles.z);
+	}
+	
 	public void Pause() {
 		if (!pressedPause) {
 			pressedPause = true;
@@ -246,18 +262,20 @@ public class PluginScript : MonoBehaviour {
 				if (Menuscript.vrEnabled) {
 					StartCoroutine(Wait());
 				}
-				SetRightText ("Start Tracking");
-				pause = false;
-				cardboard.enabled = true;
-				head.trackRotation = true;
-				textMiddle.text = "";
-				pressedPause = false;
-				pauseButton.interactable = true;
-				moveButton.interactable = true;
-				bridge.Call ("trackMovement", Menuscript.movementEnabled);
-				cardboard.transform.eulerAngles = new Vector3(cardboard.transform.eulerAngles.x,
-				                                              head.transform.eulerAngles.y,
-				                                              cardboard.transform.eulerAngles.z);
+				else {
+					SetRightText ("Start Tracking");
+					pause = false;
+					cardboard.enabled = true;
+					head.trackRotation = true;
+					textMiddle.text = "";
+					pressedPause = false;
+					pauseButton.interactable = true;
+					moveButton.interactable = true;
+					bridge.Call ("trackMovement", Menuscript.movementEnabled);
+					cardboard.transform.eulerAngles = new Vector3(cardboard.transform.eulerAngles.x,
+					                                              head.transform.eulerAngles.y,
+					                                              cardboard.transform.eulerAngles.z);
+				}
 			} else {
 				SetRightText ("Stop Tracking");
 				pause = true;
