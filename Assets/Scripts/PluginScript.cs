@@ -21,6 +21,7 @@ public class PluginScript : MonoBehaviour {
 
 	public Button moveButton;
 	public Button pauseButton;
+	public Navigation_build navigation;
 	public Cardboard cardboard;
 	public CardboardHead head;
 	public GameObject cardboardCam;
@@ -213,19 +214,19 @@ public class PluginScript : MonoBehaviour {
 	}
 
 	void SetLeftText(string text) {
-		//textLeft.text = text;
+//		textLeft.text = text;
 	}
 	
 	void SetRightText(string text) {
-		//textRight.text = text;
+//		textRight.text = text;
 	}
 
 	void AddLeftText(string text) {
-		//textLeft.text = textLeft.text + "\n" + text;
+//		textLeft.text = textLeft.text + "\n" + text;
 	}
 
 	void AddRightText(string text) {
-		//textRight.text = textRight.text + "\n" + text;
+//		textRight.text = textRight.text + "\n" + text;
 	}
 
 	IEnumerator Wait() {
@@ -307,7 +308,7 @@ public class PluginScript : MonoBehaviour {
 		cardboard.transform.Rotate(new Vector3(0, -90, 0));
 		cardboard.transform.eulerAngles = new Vector3(0, cardboard.transform.eulerAngles.y, 0);
 
-		//textMiddle.text = "Place yourself in front of door " + door.name;
+		navigation.enabled = true;
 	}
 
 	void SetPosition(string text) {

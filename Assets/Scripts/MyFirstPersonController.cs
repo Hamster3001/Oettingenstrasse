@@ -189,7 +189,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
 #endif
 
             // set the desired speed to be walking
-            speed = m_WalkSpeed;
+			if (step) {
+				speed = m_WalkSpeed;
+			} else {
+				speed = 3;
+			}
             m_Input = new Vector2(horizontal, vertical);
 
             // normalize input if it exceeds 1 in combined length:
