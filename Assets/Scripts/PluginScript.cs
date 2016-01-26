@@ -231,7 +231,7 @@ public class PluginScript : MonoBehaviour {
 	IEnumerator Wait() {
 		pauseButton.interactable = false;
 		pauseButton.GetComponent<Image> ().sprite = stopsprite;
-		for (int i=10; i>=0; i--) {
+		for (int i=15; i>=0; i--) {
 			yield return new WaitForSeconds (1);
 			textMiddle.text = i.ToString();
 		}
