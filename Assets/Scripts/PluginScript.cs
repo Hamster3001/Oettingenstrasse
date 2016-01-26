@@ -41,9 +41,10 @@ public class PluginScript : MonoBehaviour {
 		pauseButton.transform.position = new Vector3 (Screen.width/2, 40, 0);
 		moveButton.transform.position = new Vector3 (Screen.width-100, 100, 0);
 
-		// Für Editor folgende zwei Zeilen auskommentieren
+		// Für Editor folgende drei Zeilen auskommentieren
 		bridge = new AndroidJavaObject ("com.example.player.Bridge");
-		bridge.Call ("initializeFingerprints", textAsset.text);
+		if (textAsset != null)
+			bridge.Call ("initializeFingerprints", textAsset.text);
 
 		doors = GameObject.FindGameObjectsWithTag("NamedDoor");
 
@@ -229,43 +230,34 @@ public class PluginScript : MonoBehaviour {
 	}
 
 	IEnumerator Wait() {
-		pauseButton.interactable = false;
-		pauseButton.GetComponent<Image> ().sprite = stopsprite;
 		for (int i=15; i>=0; i--) {
 			yield return new WaitForSeconds (1);
 			textMiddle.text = i.ToString();
 		}
 		yield return new WaitForSeconds (1);
-
-		SetRightText ("Start Tracking");
-		pause = false;
-		cardboard.enabled = true;
-		head.trackRotation = true;
-		textMiddle.text = "";
-		pressedPause = false;
-		pauseButton.interactable = true;
-		moveButton.interactable = true;
-		bridge.Call ("trackMovement", Menuscript.movementEnabled);
 	}
 
 	public void Pause() {
 		if (!pressedPause) {
 			pressedPause = true;
 			if (pause) {
+				pauseButton.interactable = false;
+				pauseButton.GetComponent<Image> ().sprite = stopsprite;
 				if (Menuscript.vrEnabled) {
 					StartCoroutine(Wait());
 				}
-				else {
-					SetRightText ("Start Tracking");
-					pause = false;
-					pauseButton.GetComponent<Image> ().sprite = stopsprite;
-					cardboard.enabled = true;
-					head.trackRotation = true;
-					textMiddle.text = "";
-					pressedPause = false;
-					moveButton.interactable = true;
-					bridge.Call ("trackMovement", Menuscript.movementEnabled);
-				}
+				SetRightText ("Start Tracking");
+				pause = false;
+				cardboard.enabled = true;
+				head.trackRotation = true;
+				textMiddle.text = "";
+				pressedPause = false;
+				pauseButton.interactable = true;
+				moveButton.interactable = true;
+				bridge.Call ("trackMovement", Menuscript.movementEnabled);
+				cardboard.transform.eulerAngles = new Vector3(cardboard.transform.eulerAngles.x,
+				                                              head.transform.eulerAngles.y,
+				                                              cardboard.transform.eulerAngles.z);
 			} else {
 				SetRightText ("Stop Tracking");
 				pause = true;
