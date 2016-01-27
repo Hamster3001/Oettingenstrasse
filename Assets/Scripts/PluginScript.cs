@@ -85,9 +85,6 @@ public class PluginScript : MonoBehaviour {
 	void Update () {
 		//textMiddle.text = cardboard.transform.position.x + " , " + cardboard.transform.position.z;
 
-//		SetLeftText ("Cardboard: " + cardboard.transform.eulerAngles.y);
-//		AddLeftText ("Head: " + head.transform.eulerAngles.y);
-
 		if (Input.GetButtonDown ("Pause")) {
 			if (pause) {
 				SetRightText("Start Tracking");
@@ -340,12 +337,15 @@ public class PluginScript : MonoBehaviour {
 			float zPosition = float.Parse(parameterArray[1]);
 
 			cardboard.transform.position = new Vector3(xPosition, cardboard.transform.position.y, zPosition);
-			GameObject door = getNearestNeighbor(cardboard.transform, doors).gameObject;
+			Transform nn = getNearestNeighbor(cardboard.transform, doors);
+			if (nn != null) {
+				GameObject door = nn.gameObject;
+				SetRightText("HitDoor: " + door.name);
 
-			InitPosition(door);
+				InitPosition(door);
+			}
 
 			SetLeftText("Position: X=" + xPosition.ToString() + ", Z=" + zPosition.ToString() + "\n" + parameterArray[2]);
-			AddLeftText("Room: " + door.name);
 		}
 		else {
 			SetLeftText("Wrong Parameter Size");
@@ -356,14 +356,19 @@ public class PluginScript : MonoBehaviour {
 		Transform bestTarget = null;
 		float closestDist = Mathf.Infinity;
 		Vector3 currentPosition = source.position;
+		RaycastHit hit;
 
 		foreach (GameObject potentialTarget in allwaypoints) {
 			Vector3 directionToTarget = potentialTarget.transform.position - currentPosition;
 			directionToTarget.y =0.001f;
-			float dist = directionToTarget.sqrMagnitude;
-			if(dist < closestDist) {
-				closestDist = dist;
-				bestTarget = potentialTarget.transform;
+			if (Physics.Raycast(currentPosition, directionToTarget, out hit)) {
+				if (hit.transform.gameObject.tag.Equals("NamedDoor")) {
+					float dist = directionToTarget.sqrMagnitude;
+					if(dist < closestDist) {
+						closestDist = dist;
+						bestTarget = potentialTarget.transform;
+					}
+				}
 			}
 		}
 		return bestTarget;
