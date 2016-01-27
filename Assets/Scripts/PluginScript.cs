@@ -38,7 +38,7 @@ public class PluginScript : MonoBehaviour {
 	void Start () {
 		//textMiddle.text = "Localization ...";
 
-		pauseButton.transform.position = new Vector3 (Screen.width/2, 40, 0);
+		pauseButton.transform.position = new Vector3 (Screen.width/2, 50, 0);
 		moveButton.transform.position = new Vector3 (Screen.width-100, 100, 0);
 
 		// Für Editor folgende drei Zeilen auskommentieren
