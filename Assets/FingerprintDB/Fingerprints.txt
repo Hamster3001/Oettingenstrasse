@@ -1,3 +1,38 @@
+fingerprint: -3,1,0,28.487143
+measure: 00:03:52:df:a6:b6, -79
+measure: 00:03:52:df:a6:b3, -79
+measure: 00:03:52:df:a6:b4, -79
+measure: 2c:41:38:f3:4c:54, -69
+measure: 00:03:52:df:a6:b5, -80
+measure: 00:03:52:df:a6:b0, -79
+measure: 00:03:52:e4:61:03, -56
+measure: 00:03:52:e4:61:04, -56
+measure: 00:03:52:e4:61:02, -56
+measure: 00:03:52:e4:61:06, -56
+measure: 2c:41:38:f3:4c:46, -77
+measure: 2c:41:38:f3:4c:45, -75
+measure: 2c:41:38:f3:4c:44, -75
+measure: 2c:41:38:f3:4c:40, -78
+measure: 00:03:52:e4:61:05, -56
+measure: 00:03:52:e4:61:00, -56
+measure: 2c:41:38:f3:4c:41, -76
+measure: 2c:41:38:ef:8d:14, -72
+measure: 2c:41:38:ef:8d:16, -73
+measure: 2c:41:38:ef:8d:10, -73
+measure: 2c:41:38:ef:8d:05, -84
+measure: 2c:41:38:ef:8d:00, -83
+measure: 2c:41:38:ef:8d:04, -83
+measure: 2c:41:38:ef:8d:06, -84
+measure: 20:c9:d0:ae:ab:6c, -94
+measure: 2c:41:38:ef:8d:01, -84
+measure: 2c:41:38:f3:4c:56, -65
+measure: 2c:41:38:f3:5e:b0, -87
+measure: 2c:41:38:f3:5e:b4, -91
+measure: 2c:41:38:f3:5e:b1, -88
+measure: 2c:41:38:f3:4c:50, -73
+measure: 2c:41:38:ef:8d:11, -73
+measure: 2c:41:38:f3:4c:51, -73
+
 fingerprint: -9,7,0,184.59521
 measure: 00:03:52:df:a6:b3, -84
 measure: 00:03:52:e4:61:04, -53
@@ -115,7 +150,7 @@ measure: 2c:41:38:f3:4c:40, -68
 measure: 2c:41:38:f3:4c:51, -55
 measure: 2c:41:38:f3:4c:41, -68
 
-fingerprint: -4,7,0,187.81316
+fingerprint: -5,7,0,187.81316
 measure: 00:03:52:df:a6:b3, -80
 measure: 00:03:52:e4:61:04, -49
 measure: 2c:41:38:f3:4c:44, -72
@@ -221,42 +256,7 @@ measure: 2c:41:38:f3:5e:b6, -89
 measure: 2c:41:38:ef:1e:90, -87
 measure: 2c:41:38:f3:5e:b4, -87
 
-fingerprint: -3,0,0,28.487143
-measure: 00:03:52:df:a6:b6, -79
-measure: 00:03:52:df:a6:b3, -79
-measure: 00:03:52:df:a6:b4, -79
-measure: 2c:41:38:f3:4c:54, -69
-measure: 00:03:52:df:a6:b5, -80
-measure: 00:03:52:df:a6:b0, -79
-measure: 00:03:52:e4:61:03, -56
-measure: 00:03:52:e4:61:04, -56
-measure: 00:03:52:e4:61:02, -56
-measure: 00:03:52:e4:61:06, -56
-measure: 2c:41:38:f3:4c:46, -77
-measure: 2c:41:38:f3:4c:45, -75
-measure: 2c:41:38:f3:4c:44, -75
-measure: 2c:41:38:f3:4c:40, -78
-measure: 00:03:52:e4:61:05, -56
-measure: 00:03:52:e4:61:00, -56
-measure: 2c:41:38:f3:4c:41, -76
-measure: 2c:41:38:ef:8d:14, -72
-measure: 2c:41:38:ef:8d:16, -73
-measure: 2c:41:38:ef:8d:10, -73
-measure: 2c:41:38:ef:8d:05, -84
-measure: 2c:41:38:ef:8d:00, -83
-measure: 2c:41:38:ef:8d:04, -83
-measure: 2c:41:38:ef:8d:06, -84
-measure: 20:c9:d0:ae:ab:6c, -94
-measure: 2c:41:38:ef:8d:01, -84
-measure: 2c:41:38:f3:4c:56, -65
-measure: 2c:41:38:f3:5e:b0, -87
-measure: 2c:41:38:f3:5e:b4, -91
-measure: 2c:41:38:f3:5e:b1, -88
-measure: 2c:41:38:f3:4c:50, -73
-measure: 2c:41:38:ef:8d:11, -73
-measure: 2c:41:38:f3:4c:51, -73
-
-fingerprint: -3,3,0,18.296848
+fingerprint: -3,4,0,18.296848
 measure: 00:03:52:df:a6:b6, -77
 measure: 00:03:52:df:a6:b3, -78
 measure: 00:03:52:df:a6:b4, -77
@@ -330,221 +330,6 @@ measure: 2c:41:38:f3:5e:b4, -87
 measure: 2c:41:38:f3:5e:b6, -87
 measure: 2c:41:38:f3:5e:b0, -87
 
-fingerprint: -6,7,0,179.97406
-measure: 00:03:52:df:a6:b6, -86
-measure: 00:03:52:df:a6:b3, -85
-measure: 00:03:52:df:a6:b4, -85
-measure: 2c:41:38:f3:4c:54, -58
-measure: 00:03:52:df:a6:b5, -85
-measure: 00:03:52:df:a6:b0, -85
-measure: 00:03:52:e4:61:03, -57
-measure: 00:03:52:e4:61:04, -57
-measure: 00:03:52:e4:61:02, -57
-measure: 00:03:52:e4:61:06, -57
-measure: 2c:41:38:f3:4c:46, -66
-measure: 2c:41:38:f3:4c:45, -66
-measure: 2c:41:38:f3:4c:44, -66
-measure: 2c:41:38:f3:4c:40, -66
-measure: 00:03:52:e4:61:05, -58
-measure: 00:03:52:e4:61:00, -57
-measure: 2c:41:38:f3:4c:41, -66
-measure: 2c:41:38:ef:8d:14, -71
-measure: 2c:41:38:ef:8d:16, -71
-measure: 2c:41:38:ef:8d:10, -72
-measure: 2c:41:38:ef:8d:05, -80
-measure: 2c:41:38:ef:8d:00, -81
-measure: 2c:41:38:ef:8d:04, -82
-measure: 2c:41:38:ef:8d:06, -81
-measure: 2c:41:38:ef:8d:01, -80
-measure: 2c:41:38:f3:4c:50, -58
-measure: 2c:41:38:f3:4c:56, -58
-measure: 2c:41:38:f3:5e:b4, -87
-measure: 2c:41:38:f3:5e:b6, -89
-measure: 2c:41:38:f3:5e:b0, -89
-measure: 20:c9:d0:ae:ab:6c, -94
-measure: 2c:41:38:ef:1e:92, -91
-measure: 2c:41:38:ef:1e:94, -92
-measure: 2c:41:38:f3:4c:51, -63
-
-fingerprint: -6,3,0,174.6322
-measure: 00:03:52:df:a6:b6, -82
-measure: 00:03:52:df:a6:b3, -83
-measure: 00:03:52:df:a6:b4, -83
-measure: 2c:41:38:f3:4c:54, -72
-measure: 00:03:52:df:a6:b5, -81
-measure: 00:03:52:df:a6:b0, -83
-measure: 00:03:52:e4:61:03, -53
-measure: 00:03:52:e4:61:04, -51
-measure: 00:03:52:e4:61:02, -53
-measure: 00:03:52:e4:61:06, -53
-measure: 2c:41:38:f3:4c:46, -73
-measure: 2c:41:38:f3:4c:45, -74
-measure: 2c:41:38:f3:4c:44, -73
-measure: 2c:41:38:f3:4c:40, -74
-measure: 00:03:52:e4:61:05, -52
-measure: 00:03:52:e4:61:00, -53
-measure: 2c:41:38:f3:4c:41, -73
-measure: 2c:41:38:ef:8d:14, -75
-measure: 2c:41:38:ef:8d:16, -74
-measure: 2c:41:38:ef:8d:10, -74
-measure: 2c:41:38:ef:8d:05, -85
-measure: 2c:41:38:ef:8d:00, -85
-measure: 2c:41:38:ef:8d:04, -85
-measure: 2c:41:38:ef:8d:06, -85
-measure: 2c:41:38:ef:8d:01, -85
-measure: 2c:41:38:f3:4c:50, -71
-measure: 2c:41:38:f3:4c:56, -73
-measure: 2c:41:38:f3:5e:b4, -90
-measure: 2c:41:38:f3:5e:b6, -89
-measure: 2c:41:38:f3:5e:b0, -88
-measure: 2c:41:38:f3:4c:51, -76
-measure: 2c:41:38:ef:8d:11, -70
-measure: 20:c9:d0:ae:ab:6c, -92
-
-fingerprint: -6,1,0,167.7337
-measure: 00:03:52:df:a6:b6, -79
-measure: 00:03:52:df:a6:b3, -80
-measure: 00:03:52:df:a6:b4, -79
-measure: 2c:41:38:f3:4c:54, -74
-measure: 00:03:52:df:a6:b5, -80
-measure: 00:03:52:df:a6:b0, -79
-measure: 00:03:52:e4:61:03, -61
-measure: 00:03:52:e4:61:04, -61
-measure: 00:03:52:e4:61:02, -61
-measure: 00:03:52:e4:61:06, -61
-measure: 2c:41:38:f3:4c:46, -77
-measure: 2c:41:38:f3:4c:45, -76
-measure: 2c:41:38:f3:4c:44, -78
-measure: 2c:41:38:f3:4c:40, -77
-measure: 00:03:52:e4:61:05, -61
-measure: 00:03:52:e4:61:00, -61
-measure: 2c:41:38:f3:4c:41, -77
-measure: 2c:41:38:ef:8d:14, -78
-measure: 2c:41:38:ef:8d:16, -78
-measure: 2c:41:38:ef:8d:10, -78
-measure: 2c:41:38:ef:8d:05, -86
-measure: 2c:41:38:ef:8d:00, -85
-measure: 2c:41:38:ef:8d:04, -86
-measure: 2c:41:38:ef:8d:06, -86
-measure: 2c:41:38:ef:8d:01, -85
-measure: 2c:41:38:f3:4c:50, -73
-measure: 2c:41:38:f3:4c:56, -74
-measure: 20:c9:d0:ae:ab:6c, -92
-measure: 2c:41:38:f3:4c:51, -73
-measure: 2c:41:38:ef:8d:11, -80
-measure: 2c:41:38:f3:5e:b6, -89
-measure: 2c:41:38:f3:5e:b4, -88
-measure: 2c:41:38:f3:5e:b0, -89
-
-fingerprint: -7,1,0,178.51894
-measure: 00:03:52:df:a6:b6, -76
-measure: 00:03:52:df:a6:b3, -77
-measure: 00:03:52:df:a6:b4, -76
-measure: 2c:41:38:f3:4c:54, -62
-measure: 00:03:52:df:a6:b5, -76
-measure: 00:03:52:df:a6:b0, -76
-measure: 00:03:52:e4:61:03, -62
-measure: 00:03:52:e4:61:04, -62
-measure: 00:03:52:e4:61:02, -62
-measure: 00:03:52:e4:61:06, -62
-measure: 2c:41:38:f3:4c:46, -70
-measure: 2c:41:38:f3:4c:45, -70
-measure: 2c:41:38:f3:4c:44, -69
-measure: 2c:41:38:f3:4c:40, -69
-measure: 00:03:52:e4:61:05, -62
-measure: 00:03:52:e4:61:00, -62
-measure: 2c:41:38:f3:4c:41, -70
-measure: 2c:41:38:ef:8d:14, -82
-measure: 2c:41:38:ef:8d:16, -82
-measure: 2c:41:38:ef:8d:10, -83
-measure: 2c:41:38:ef:8d:05, -89
-measure: 2c:41:38:ef:8d:00, -89
-measure: 2c:41:38:ef:8d:04, -89
-measure: 2c:41:38:ef:8d:06, -89
-measure: 2c:41:38:ef:8d:01, -89
-measure: 2c:41:38:f3:4c:50, -62
-measure: 2c:41:38:f3:4c:56, -63
-measure: 20:c9:d0:ae:ab:6c, -84
-measure: 2c:41:38:f3:5e:b6, -87
-measure: 2c:41:38:f3:5e:b4, -84
-measure: 2c:41:38:f3:5e:b1, -85
-measure: 2c:41:38:f3:5e:b0, -83
-
-fingerprint: -7,3,0,176.07834
-measure: 00:03:52:df:a6:b6, -83
-measure: 00:03:52:df:a6:b3, -83
-measure: 00:03:52:df:a6:b4, -83
-measure: 2c:41:38:f3:4c:54, -62
-measure: 00:03:52:df:a6:b5, -83
-measure: 00:03:52:df:a6:b0, -83
-measure: 00:03:52:e4:61:03, -62
-measure: 00:03:52:e4:61:04, -63
-measure: 00:03:52:e4:61:02, -62
-measure: 00:03:52:e4:61:06, -63
-measure: 2c:41:38:f3:4c:46, -65
-measure: 2c:41:38:f3:4c:45, -65
-measure: 2c:41:38:f3:4c:44, -65
-measure: 2c:41:38:f3:4c:40, -64
-measure: 00:03:52:e4:61:05, -63
-measure: 00:03:52:e4:61:00, -62
-measure: 2c:41:38:f3:4c:41, -65
-measure: 2c:41:38:ef:8d:14, -79
-measure: 2c:41:38:ef:8d:16, -80
-measure: 2c:41:38:ef:8d:10, -80
-measure: 2c:41:38:ef:8d:05, -89
-measure: 2c:41:38:ef:8d:00, -89
-measure: 2c:41:38:ef:8d:04, -87
-measure: 2c:41:38:ef:8d:06, -90
-measure: 2c:41:38:ef:8d:01, -89
-measure: 2c:41:38:f3:4c:50, -62
-measure: 2c:41:38:f3:4c:56, -63
-measure: 20:c9:d0:ae:ab:6c, -89
-measure: 2c:41:38:f3:5e:b4, -84
-measure: 2c:41:38:f3:5e:b0, -84
-measure: 2c:41:38:f3:5e:b6, -85
-measure: 2c:41:38:ef:8d:11, -81
-measure: 2c:41:38:f3:5e:b1, -90
-measure: 2c:41:38:f3:5e:a0, -93
-measure: 2c:41:38:f3:5e:a6, -94
-
-fingerprint: -7,7,0,162.0826
-measure: 00:03:52:df:a6:b6, -86
-measure: 00:03:52:df:a6:b3, -86
-measure: 00:03:52:df:a6:b4, -85
-measure: 2c:41:38:f3:4c:54, -46
-measure: 00:03:52:df:a6:b5, -85
-measure: 00:03:52:df:a6:b0, -85
-measure: 00:03:52:e4:61:03, -58
-measure: 00:03:52:e4:61:04, -58
-measure: 00:03:52:e4:61:02, -58
-measure: 00:03:52:e4:61:06, -58
-measure: 2c:41:38:f3:4c:46, -58
-measure: 2c:41:38:f3:4c:45, -59
-measure: 2c:41:38:f3:4c:44, -59
-measure: 2c:41:38:f3:4c:40, -60
-measure: 00:03:52:e4:61:05, -58
-measure: 00:03:52:e4:61:00, -58
-measure: 2c:41:38:f3:4c:41, -60
-measure: 2c:41:38:ef:8d:14, -76
-measure: 2c:41:38:ef:8d:16, -76
-measure: 2c:41:38:ef:8d:10, -76
-measure: 2c:41:38:ef:8d:05, -88
-measure: 2c:41:38:ef:8d:00, -87
-measure: 2c:41:38:ef:8d:04, -86
-measure: 2c:41:38:ef:8d:06, -88
-measure: 2c:41:38:ef:8d:01, -88
-measure: 2c:41:38:f3:4c:50, -46
-measure: 2c:41:38:f3:4c:56, -46
-measure: 20:c9:d0:ae:ab:6c, -88
-measure: 2c:41:38:f3:5e:b4, -80
-measure: 2c:41:38:f3:5e:b0, -80
-measure: 2c:41:38:f3:5e:b6, -79
-measure: 2c:41:38:f3:5e:a0, -93
-measure: 2c:41:38:f3:5e:a6, -94
-measure: 2c:41:38:f3:5e:a5, -93
-measure: 2c:41:38:f3:5e:a4, -96
-measure: 2c:41:38:f3:5e:a1, -93
-
 fingerprint: -13,7,0,173.11777
 measure: 00:03:52:df:a6:b6, -86
 measure: 00:03:52:df:a6:b3, -85
@@ -581,7 +366,7 @@ measure: 2c:41:38:f3:5e:a6, -92
 measure: 2c:41:38:f3:5e:b1, -82
 measure: 2c:41:38:ef:8d:11, -83
 
-fingerprint: -13,3,0,177.94691
+fingerprint: -13,4,0,177.94691
 measure: 2c:41:38:f3:4c:54, -63
 measure: 00:03:52:e4:61:03, -67
 measure: 00:03:52:e4:61:04, -67
@@ -612,7 +397,7 @@ measure: 2c:41:38:ef:8d:01, -92
 measure: 20:c9:d0:ae:ab:6d, -91
 measure: 2c:41:38:f3:5e:b1, -82
 
-fingerprint: -13,0,0,207.68388
+fingerprint: -13,1,0,207.68388
 measure: 2c:41:38:f3:4c:54, -65
 measure: 00:03:52:e4:61:03, -63
 measure: 00:03:52:e4:61:04, -64
