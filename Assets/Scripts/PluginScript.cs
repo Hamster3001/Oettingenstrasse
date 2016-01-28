@@ -21,6 +21,7 @@ public class PluginScript : MonoBehaviour {
 
 	public Button moveButton;
 	public Button pauseButton;
+	public Navigation_build navigation;
 	public Cardboard cardboard;
 	public CardboardHead head;
 	public GameObject cardboardCam;
@@ -38,6 +39,7 @@ public class PluginScript : MonoBehaviour {
 	void Start () {
 		pauseButton.transform.position = new Vector3 (Screen.width/2, 50, 0);
 		moveButton.transform.position = new Vector3 (Screen.width-100, 100, 0);
+		textLeft.transform.position = new Vector3 (Screen.width/4, Screen.height/2);
 
 		// Für Editor folgende vier Zeilen auskommentieren
 		bridge = new AndroidJavaObject ("com.example.player.Bridge");
@@ -331,6 +333,8 @@ public class PluginScript : MonoBehaviour {
 		}
 
 		cardboard.transform.eulerAngles = new Vector3(0, cardboard.transform.eulerAngles.y, 0);
+
+		navigation.enabled = true;
 	}
 
 	void SetPosition(string text) {
@@ -346,6 +350,9 @@ public class PluginScript : MonoBehaviour {
 				SetRightText("HitDoor: " + door.name);
 
 				InitPosition(door);
+			}
+			else {
+				InitPosition(entrance);
 			}
 
 			SetLeftText("Position: X=" + xPosition.ToString() + ", Z=" + zPosition.ToString() + "\n" + parameterArray[2]);
