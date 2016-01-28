@@ -36,8 +36,6 @@ public class PluginScript : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		//textMiddle.text = "Localization ...";
-
 		pauseButton.transform.position = new Vector3 (Screen.width/2, 50, 0);
 		moveButton.transform.position = new Vector3 (Screen.width-100, 100, 0);
 
@@ -93,7 +91,6 @@ public class PluginScript : MonoBehaviour {
 				cardboard.enabled = true;
 				head.trackRotation = true;
 				moveButton.interactable = true;
-				//textMiddle.text = "";
 				bridge.Call ("trackMovement", Menuscript.movementEnabled);
 			}
 			else {
@@ -156,7 +153,7 @@ public class PluginScript : MonoBehaviour {
 
 		Touch[] touches = Input.touches;
 		if (touches.Length == 1) {
-			if (touches [0].phase.Equals (TouchPhase.Moved) && !Menuscript.vrEnabled) {
+			if (touches [0].phase.Equals (TouchPhase.Moved)) {
 				if (state != State.Overview
 					&& touches [0].deltaPosition.y > 5.0f) {
 					state = State.Overview;
@@ -248,6 +245,13 @@ public class PluginScript : MonoBehaviour {
 		cardboard.transform.eulerAngles = new Vector3(cardboard.transform.eulerAngles.x,
 		                                              head.transform.eulerAngles.y,
 		                                              cardboard.transform.eulerAngles.z);
+		StartCoroutine(Go());
+	}
+
+	IEnumerator Go() {
+		textLeft.text = "Go!";
+		yield return new WaitForSeconds (5);
+		textLeft.text = "";
 	}
 	
 	public void Pause() {
@@ -326,8 +330,6 @@ public class PluginScript : MonoBehaviour {
 		}
 
 		cardboard.transform.eulerAngles = new Vector3(0, cardboard.transform.eulerAngles.y, 0);
-
-		//textMiddle.text = "Place yourself in front of door " + door.name;
 	}
 
 	void SetPosition(string text) {
