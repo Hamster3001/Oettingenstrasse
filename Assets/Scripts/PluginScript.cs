@@ -39,8 +39,9 @@ public class PluginScript : MonoBehaviour {
 		pauseButton.transform.position = new Vector3 (Screen.width/2, 50, 0);
 		moveButton.transform.position = new Vector3 (Screen.width-100, 100, 0);
 
-		// Für Editor folgende drei Zeilen auskommentieren
+		// Für Editor folgende vier Zeilen auskommentieren
 		bridge = new AndroidJavaObject ("com.example.player.Bridge");
+		bridge.Call ("trackMovement", false);
 		if (textAsset != null)
 			bridge.Call ("initializeFingerprints", textAsset.text);
 
