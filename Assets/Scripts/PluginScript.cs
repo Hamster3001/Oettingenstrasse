@@ -88,20 +88,28 @@ public class PluginScript : MonoBehaviour {
 
 		if (Input.GetButtonDown ("Pause")) {
 			if (pause) {
-				SetRightText("Start Tracking");
+				pauseButton.interactable = false;
+				pauseButton.GetComponent<Image> ().sprite = stopsprite;
+				SetRightText ("Start Tracking");
 				pause = false;
-				pauseButton.GetComponent<Image>().sprite = stopsprite;
 				cardboard.enabled = true;
 				head.trackRotation = true;
+				textMiddle.text = "";
+				pressedPause = false;
+				pauseButton.interactable = true;
 				moveButton.interactable = true;
 				bridge.Call ("trackMovement", Menuscript.movementEnabled);
+				cardboard.transform.eulerAngles = new Vector3(cardboard.transform.eulerAngles.x,
+				                                              head.transform.eulerAngles.y,
+				                                              cardboard.transform.eulerAngles.z);
 			}
 			else {
-				SetRightText("Stop Tracking");
+				SetRightText ("Stop Tracking");
 				pause = true;
-				pauseButton.GetComponent<Image>().sprite = playsprite;
+				pauseButton.GetComponent<Image> ().sprite = playsprite;
 				cardboard.enabled = false;
 				head.trackRotation = false;
+				pressedPause = false;
 				moveButton.interactable = false;
 				bridge.Call ("trackMovement", false);
 			}
@@ -182,17 +190,17 @@ public class PluginScript : MonoBehaviour {
 					cardboardCam.SetActive (true);
 				}
 			}
-			else if (touches [0].phase.Equals (TouchPhase.Began)
-			           && touches [0].position.x < 200
-			           && touches [0].position.y > Screen.height-100) {
-				SetLeftText("Record Fingerprint");
-				bridge.Call ("recordFingerprint", cardboard.transform.position.x, cardboard.transform.position.z);
-			} else if (touches [0].phase.Equals (TouchPhase.Began)
-			           && touches [0].position.x < 200
-			           && touches [0].position.y < 100) {
-				SetLeftText("Find Position");
-				bridge.Call ("findPosition");
-			}
+//			else if (touches [0].phase.Equals (TouchPhase.Began)
+//			           && touches [0].position.x < 200
+//			           && touches [0].position.y > Screen.height-100) {
+//				SetLeftText("Record Fingerprint");
+//				bridge.Call ("recordFingerprint", cardboard.transform.position.x, cardboard.transform.position.z);
+//			} else if (touches [0].phase.Equals (TouchPhase.Began)
+//			           && touches [0].position.x < 200
+//			           && touches [0].position.y < 100) {
+//				SetLeftText("Find Position");
+//				bridge.Call ("findPosition");
+//			}
 		}
 		else if (touches.Length == 2) {
 			if (state == State.Overview) {

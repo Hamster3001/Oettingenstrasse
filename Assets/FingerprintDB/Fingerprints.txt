@@ -1,4 +1,4 @@
-fingerprint: -9,7,0,184.59521
+fingerprint: -9,6,0,184.59521
 measure: 00:03:52:df:a6:b3, -84
 measure: 00:03:52:e4:61:04, -53
 measure: 2c:41:38:f3:4c:46, -55
@@ -76,7 +76,7 @@ measure: 2c:41:38:f3:5e:a0, -92
 measure: 2c:41:38:f3:5e:a6, -94
 measure: 2c:41:38:f3:5e:a1, -91
 
-fingerprint: -9,1,0,183.74026
+fingerprint: -9,2,0,183.74026
 measure: 00:03:52:df:a6:b3, -79
 measure: 00:03:52:e4:61:04, -62
 measure: 2c:41:38:f3:4c:44, -65
@@ -115,7 +115,7 @@ measure: 2c:41:38:f3:4c:40, -68
 measure: 2c:41:38:f3:4c:51, -55
 measure: 2c:41:38:f3:4c:41, -68
 
-fingerprint: -5,7,0,187.81316
+fingerprint: -5,6,0,187.81316
 measure: 00:03:52:df:a6:b3, -80
 measure: 00:03:52:e4:61:04, -49
 measure: 2c:41:38:f3:4c:44, -72
@@ -150,7 +150,7 @@ measure: 2c:41:38:ef:8d:11, -77
 measure: 2c:41:38:f3:4c:45, -76
 measure: 2c:41:38:f3:4c:41, -76
 
-fingerprint: -5,3,0,172.89209
+fingerprint: -5,4,0,172.89209
 measure: 00:03:52:df:a6:b3, -79
 measure: 00:03:52:e4:61:04, -53
 measure: 2c:41:38:f3:4c:44, -67
@@ -185,7 +185,7 @@ measure: 2c:41:38:f3:4c:46, -66
 measure: 2c:41:38:f3:4c:45, -67
 measure: 2c:41:38:f3:5e:b1, -87
 
-fingerprint: -5,1,0,187.24501
+fingerprint: -5,2,0,187.24501
 measure: 00:03:52:df:a6:b3, -73
 measure: 00:03:52:e4:61:04, -51
 measure: 2c:41:38:f3:4c:44, -71
@@ -221,7 +221,7 @@ measure: 2c:41:38:f3:5e:b6, -89
 measure: 2c:41:38:ef:1e:90, -87
 measure: 2c:41:38:f3:5e:b4, -87
 
-fingerprint: -3,1,0,28.487143
+fingerprint: -3,2,0,28.487143
 measure: 00:03:52:df:a6:b6, -79
 measure: 00:03:52:df:a6:b3, -79
 measure: 00:03:52:df:a6:b4, -79
@@ -295,7 +295,7 @@ measure: 2c:41:38:ef:8d:11, -73
 measure: 2c:41:38:f3:5e:b6, -88
 measure: 2c:41:38:f3:5e:b0, -89
 
-fingerprint: -3,7,0,179.43285
+fingerprint: -3,6,0,179.43285
 measure: 00:03:52:df:a6:b6, -83
 measure: 00:03:52:df:a6:b3, -83
 measure: 00:03:52:df:a6:b4, -83
@@ -330,7 +330,7 @@ measure: 2c:41:38:f3:5e:b4, -87
 measure: 2c:41:38:f3:5e:b6, -87
 measure: 2c:41:38:f3:5e:b0, -87
 
-fingerprint: -13,7,0,173.11777
+fingerprint: -13,6,0,173.11777
 measure: 00:03:52:df:a6:b6, -86
 measure: 00:03:52:df:a6:b3, -85
 measure: 00:03:52:df:a6:b4, -85
@@ -397,7 +397,7 @@ measure: 2c:41:38:ef:8d:01, -92
 measure: 20:c9:d0:ae:ab:6d, -91
 measure: 2c:41:38:f3:5e:b1, -82
 
-fingerprint: -13,1,0,207.68388
+fingerprint: -13,2,0,207.68388
 measure: 2c:41:38:f3:4c:54, -65
 measure: 00:03:52:e4:61:03, -63
 measure: 00:03:52:e4:61:04, -64
